@@ -14,7 +14,9 @@ import {
   Sun, 
   ExternalLink,
   BookOpen,
-  Mail
+  Mail,
+  Briefcase,
+  GitMerge
 } from "lucide-react";
 import { GitHubIcon } from "./icons";
 
@@ -99,6 +101,28 @@ export function CommandPalette({
       icon: <Globe size={16} />,
       action: () => {
         navigate("/projects");
+        handleClose();
+      },
+    },
+    {
+      id: "nav-experience",
+      category: "navigation",
+      title: "Go to Experience",
+      subtitle: "Engineering experience & freelance work",
+      icon: <Briefcase size={16} />,
+      action: () => {
+        navigate("/experience");
+        handleClose();
+      },
+    },
+    {
+      id: "nav-opensource",
+      category: "navigation",
+      title: "Go to Open Source",
+      subtitle: "5+ merged pull requests & contributions",
+      icon: <GitMerge size={16} />,
+      action: () => {
+        navigate("/#opensource");
         handleClose();
       },
     },

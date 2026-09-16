@@ -19,12 +19,32 @@ export type Job = {
   url?: string;
 };
 
+export type FreelanceProject = {
+  title: string;
+  category: string;
+  description: string;
+  overview: string;
+  responsibilities: string[];
+  technologies: string[];
+  fullStack: string[];
+};
+
 export type Post = {
   title: string;
   summary: string;
   date: string;
   url: string;
   readingTime?: string;
+};
+
+export type OpenSourceContribution = {
+  title: string;
+  repo: string;
+  prNumber: number;
+  url: string;
+  status: "Merged";
+  description: string;
+  technologies: string[];
 };
 
 export const site = {
@@ -81,10 +101,77 @@ export const site = {
       role: "Backend & Full-Stack Developer",
       period: "2025 – Present",
       blurb:
-        "Building and deploying full-stack web applications, SaaS platforms, and backend systems. Working across APIs, authentication, databases, real-time systems, and modern web infrastructure.",
+        "Building and shipping full-stack applications, SaaS products, and backend systems for real-world use cases. Working across APIs, authentication, databases, real-time systems, and modern web infrastructure.",
       url: "",
     },
   ] as Job[],
+  freelanceProjects: [
+    {
+      title: "Course Selling Platform",
+      category: "Backend Development · Freelance",
+      description:
+        "Backend for an online course platform supporting authentication, course management, purchases, enrollments, and content access.",
+      overview:
+        "Developed the backend for a course-selling platform where users can discover courses, purchase access, and manage their enrolled content.",
+      responsibilities: [
+        "REST API development",
+        "Authentication and authorization",
+        "Course management",
+        "Enrollment and access control",
+        "Purchase workflows",
+        "Database design",
+        "Backend architecture",
+      ],
+      technologies: ["TypeScript", "Redis", "Razorpay", "Cloudinary", "JWT", "Docker", "Swagger"],
+      fullStack: [
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Redis",
+        "Razorpay",
+        "Cloudinary",
+        "JWT",
+        "Docker",
+        "Swagger",
+        "REST APIs",
+        "Postman",
+      ],
+    },
+    {
+      title: "Learning Management System",
+      category: "Backend Development · Freelance",
+      description:
+        "Backend architecture for an LMS supporting students, instructors, courses, enrollments, lessons, and progress tracking.",
+      overview:
+        "Built the backend architecture for a Learning Management System supporting students, instructors, and administrators.",
+      responsibilities: [
+        "Authentication",
+        "Role-based authorization",
+        "Course management",
+        "Lesson management",
+        "Enrollment workflows",
+        "Student progress tracking",
+        "REST API development",
+        "Database design",
+      ],
+      technologies: ["TypeScript", "Redis", "AWS S3", "JWT", "RBAC", "Docker", "Swagger"],
+      fullStack: [
+        "TypeScript",
+        "Node.js",
+        "Express.js",
+        "MongoDB",
+        "Redis",
+        "AWS S3",
+        "JWT",
+        "RBAC",
+        "Docker",
+        "Swagger",
+        "REST APIs",
+        "Postman",
+      ],
+    },
+  ] as FreelanceProject[],
   projects: [
     {
       title: "FrameLabs",
@@ -233,6 +320,58 @@ export const site = {
       url: "https://medium.com/@anuragdotdev/the-jwt-storage-debate-is-over-heres-the-production-grade-architecture-your-app-actually-needs-9ab284da065f",
     }
   ] as Post[],
+  openSourceContributions: [
+    {
+      title: "UI: Restyle hero buttons to custom Neo-Brutalist spec",
+      repo: "fossasia/voxbento",
+      prNumber: 370,
+      url: "https://github.com/fossasia/voxbento/pull/370",
+      status: "Merged",
+      description:
+        "Restyled hero CTA buttons with custom Neo-Brutalist design, thicker borders, hard-offset shadows, hover lift, and active press states while resolving CSS specificity issues with Tailwind preflight.",
+      technologies: ["Tailwind CSS", "CSS", "UI/UX", "Neo-Brutalism"],
+    },
+    {
+      title: "UI: Restyle navbar login buttons to custom Neo-Brutalist spec",
+      repo: "fossasia/voxbento",
+      prNumber: 358,
+      url: "https://github.com/fossasia/voxbento/pull/358",
+      status: "Merged",
+      description:
+        "Standardized landing page navbar authentication actions (Sign In, Register, Dashboard) into unified Neo-Brutalist button components with standardized borders, shadows, hover lift, and active states.",
+      technologies: ["CSS", "HTML", "UI/UX", "Neo-Brutalism"],
+    },
+    {
+      title: "Bug fix: speaker image blue overlay",
+      repo: "fossasia/voxbento",
+      prNumber: 389,
+      url: "https://github.com/fossasia/voxbento/pull/389",
+      status: "Merged",
+      description:
+        "Resolved an image rendering bug on the landing page where the speaker visual was obscured by an unwanted blue overlay and blend mode, restoring full color clarity.",
+      technologies: ["HTML", "Tailwind CSS", "Bug Fix"],
+    },
+    {
+      title: "UI: Restyle navbar logout button to match Brutalist outline style",
+      repo: "fossasia/voxbento",
+      prNumber: 395,
+      url: "https://github.com/fossasia/voxbento/pull/395",
+      status: "Merged",
+      description:
+        "Restyled the Logout action in the homepage header navbar from a plain text link into a responsive Neo-Brutalist outline button matching adjacent dashboard controls.",
+      technologies: ["HTML", "CSS", "UI/UX", "Neo-Brutalism"],
+    },
+    {
+      title: "Refactor(activity): Remove redundant Touch.enable call",
+      repo: "sugarlabs/musicblocks",
+      prNumber: 8126,
+      url: "https://github.com/sugarlabs/musicblocks/pull/8126",
+      status: "Merged",
+      description:
+        "Cleaned up redundant touch initialization on the stage instance in EaselJS/CreateJS canvas rendering loop, optimizing event handler registration without breaking mobile interactions.",
+      technologies: ["JavaScript", "EaselJS", "Performance", "Refactoring"],
+    },
+  ] as OpenSourceContribution[],
   github: {
     username: "nodeanurag",
     contributionsLastYear: "500+",

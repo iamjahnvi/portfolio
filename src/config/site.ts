@@ -193,6 +193,13 @@ export const site = {
   ],
   writing: [
     {
+      title: "Authentication & Authorization for Backend Engineers: A Complete Guide",
+      summary: "A comprehensive guide on authentication and authorization architectures, covering passwords, sessions at scale, JWTs, OAuth, WebAuthn, and zero-trust security for backend systems.",
+      date: "Sep 11, 2026",
+      readingTime: "25 min read",
+      url: "https://medium.com/@anuragdotdev/authentication-authorization-for-backend-engineers-a-complete-guide-f8844e97bddf?sharedUserId=anuragdotdev",
+    },
+    {
       title: "Serialization and Deserialization: The Universal Language of Backend Engineering",
       summary: "A deep dive into serialization formats from JSON and XML to Protocol Buffers, exploring schema validation, backward compatibility, and network serialization bottlenecks.",
       date: "Aug 29, 2026",

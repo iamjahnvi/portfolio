@@ -59,7 +59,7 @@ export const site = {
   socials: {
     github: "https://github.com/iamjahnvi",
     twitter: "https://x.com/fireflybuilds",
-    linkedin: "https://linkedin.com/in/nodejahnvi",
+    linkedin: "https://linkedin.com/in/jahnvi-11a189358/",
     email: "mailto:conveytojahnvi@gmail.com",
     resume: "",
     discord: "https://discord.gg/ra4kyKdTk",

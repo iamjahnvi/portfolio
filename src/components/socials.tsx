@@ -42,7 +42,7 @@ const hoverCardsData: Record<string, {
   },
   linkedin: {
     pronouns: "He/Him",
-    handle: "in/nodejahnvi",
+    handle: "in/jahnvi-11a189358",
     bio: "Frontend & Backend Developer. Experienced in React, Next.js, Node.js, and database systems.",
     stats: ["Open to Work", "Delhi, India"],
     bannerText: "network • build • impact",

@@ -33,6 +33,7 @@ export const site = {
     "/profile.jpg",
   ],
   bannerImage: "/banner.png",
+  bannerVideo: "/header-video.mp4",
   socialBannerImage: "/banner.png",
   initials: "AJ",
   role: "Full Stack Developer",

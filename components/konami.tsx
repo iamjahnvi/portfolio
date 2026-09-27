@@ -9,8 +9,7 @@ const SEQUENCES = [
     "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
     "b", "a",
   ],
-  ["a", "n", "u", "r", "a", "g"],
-  ["j", "h", "a"],
+  ["j", "a", "h", "n", "v", "i"],
 ];
 
 /**

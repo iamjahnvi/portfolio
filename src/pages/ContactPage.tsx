@@ -111,7 +111,7 @@ export function ContactPage() {
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      placeholder="Anurag Jha"
+                      placeholder="Jahnvi"
                       className="w-full rounded-xl border border-neutral-800 bg-neutral-950/80 px-4 py-2.5 text-sm text-neutral-100 placeholder:text-neutral-500 outline-none focus:border-neutral-600 transition-colors"
                     />
                   </div>

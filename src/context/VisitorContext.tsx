@@ -14,7 +14,7 @@ export function VisitorProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchCount = async () => {
       const BASELINE = 6389;
-      const KEY = "nodeanurag_portfolio_views";
+      const KEY = "nodejahnvi_portfolio_views";
       const hasVisited = sessionStorage.getItem("has_visited_session");
       
       const endpoint = hasVisited ? "get" : "hit";

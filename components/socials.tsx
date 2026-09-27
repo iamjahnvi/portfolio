@@ -32,14 +32,14 @@ const hoverCardsData: Record<string, {
   bannerGradient: string;
 }> = {
   github: {
-    handle: "@nodeanurag",
+    handle: "@nodejahnvi",
     bio: "Full Stack Developer. Building products, learning technologies, shipping consistently. Obsessed with clean code.",
     stats: ["5+ Projects", "500+ Contributions"],
     bannerText: "learn • build • ship",
     bannerGradient: "from-neutral-900 to-neutral-800",
   },
   twitter: {
-    handle: "@anuragdotdev",
+    handle: "@jahnvidotdev",
     bio: "Building clean, modern web apps where design, functionality, and even the smallest details matter.",
     stats: ["100+ Followers", "Tech bro"],
     bannerText: "connect • share • grow",
@@ -47,21 +47,21 @@ const hoverCardsData: Record<string, {
   },
   linkedin: {
     pronouns: "He/Him",
-    handle: "in/nodeanurag",
+    handle: "in/nodejahnvi",
     bio: "Frontend & Backend Developer. Experienced in React, Next.js, Node.js, and database systems.",
     stats: ["Open for Work", "Delhi, India"],
     bannerText: "network • build • impact",
     bannerGradient: "from-blue-900 to-blue-800",
   },
   medium: {
-    handle: "@anuragdotdev",
+    handle: "@jahnvidotdev",
     bio: "Writing technical articles about software development, system design, Next.js, and backend architecture.",
     stats: ["Tech Writer", "Publications"],
     bannerText: "write • share • read",
     bannerGradient: "from-neutral-800 to-zinc-950",
   },
   email: {
-    handle: "conveytoanurag@gmail.com",
+    handle: "conveytojahnvi@gmail.com",
     bio: "Available for contract work, internship opportunities, and collaborative software engineering projects.",
     stats: ["Fast Response", "Direct Email"],
     bannerText: "collab • contact • direct",
@@ -75,7 +75,7 @@ const hoverCardsData: Record<string, {
     bannerGradient: "from-teal-900 to-emerald-900",
   },
   discord: {
-    handle: "anurag.dev",
+    handle: "jahnvi.dev",
     bio: "Join my server or drop a DM to chat about web dev, coding challenges, or side projects.",
     stats: ["Developer Server", "Chat Active"],
     bannerText: "hangout • chat • code",

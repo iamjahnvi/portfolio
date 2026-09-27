@@ -28,8 +28,8 @@ export type Post = {
 };
 
 export const site = {
-  name: "Anurag Jha",
-  url: "https://anuragdotdev.vercel.app",
+  name: "Jahnvi",
+  url: "https://jahnvidotdev.vercel.app",
   profileImages: [
     "/profile.jpg",
     "/profile2.png",
@@ -40,11 +40,11 @@ export const site = {
   role: "Full Stack Developer",
   location: "Delhi, India",
   timezone: "Asia/Kolkata",
-  email: "conveytoanurag@gmail.com",
-  greeting: "Hey, I'm Anurag",
+  email: "conveytojahnvi@gmail.com",
+  greeting: "Hey, I'm Jahnvi",
   tagline: "I build clean, modern websites and web apps where design, functionality, and even the smallest details matter.",
   about: [
-    "Hey, I'm Anurag, a full stack developer who loves building clean, modern websites and apps where design, functionality, and even the smallest details matter, with a focus on making products that are both practical and visually satisfying.",
+    "Hey, I'm Jahnvi, a full stack developer who loves building clean, modern websites and apps where design, functionality, and even the smallest details matter, with a focus on making products that are both practical and visually satisfying.",
     "I spend most of my time in the terminal, the browser, or scribbling on a whiteboard. I lean backend,not because I don't like frontend, but because I enjoy making polished things actually hold up.",
     "I don't ship junk. Maintainability isn't optional. And I build best when I'm curious.",
   ],
@@ -62,13 +62,13 @@ export const site = {
     nowListening: "focus playlists",
   },
   socials: {
-    github: "https://github.com/nodeanurag",
-    twitter: "https://x.com/anuragdotdev",
-    linkedin: "https://linkedin.com/in/nodeanurag",
-    email: "mailto:conveytoanurag@gmail.com",
+    github: "https://github.com/nodejahnvi",
+    twitter: "https://x.com/jahnvidotdev",
+    linkedin: "https://linkedin.com/in/nodejahnvi",
+    email: "mailto:conveytojahnvi@gmail.com",
     resume: "",
     discord: "https://discord.gg/ra4kyKdTk",
-    medium: "https://medium.com/@anuragdotdev",
+    medium: "https://medium.com/@jahnvidotdev",
   },
   experience: [
     {
@@ -91,7 +91,7 @@ export const site = {
       year: "2026",
       links: {
         live: "https://framelabs.vercel.app/",
-        source: "https://github.com/nodeanurag/FrameLabs",
+        source: "https://github.com/nodejahnvi/FrameLabs",
       },
       featured: true,
       image: "/project-images/framelabs.png",
@@ -107,7 +107,7 @@ export const site = {
       year: "2026",
       links: {
         live: "https://doodledash.pages.dev/",
-        source: "https://github.com/nodeanurag/DoodleDash",
+        source: "https://github.com/nodejahnvi/DoodleDash",
       },
       featured: true,
       image: "/project-images/doodledash.png",
@@ -122,7 +122,7 @@ export const site = {
       stack: ["React.js", "Vite", "Zustand", "Monaco Editor", "Pyodide", "Dexie.js"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/codeforge",
+        source: "https://github.com/nodejahnvi/codeforge",
       },
       featured: true,
       status: "In Progress",
@@ -138,7 +138,7 @@ export const site = {
       stack: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS v4", "Zod", "Vitest"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/swiftpoll",
+        source: "https://github.com/nodejahnvi/swiftpoll",
       },
       featured: false,
       status: "In Progress",
@@ -154,7 +154,7 @@ export const site = {
       stack: ["Next.js", "Prisma", "PostgreSQL", "React Query", "@dnd-kit", "Next-Auth"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/nexus",
+        source: "https://github.com/nodejahnvi/nexus",
       },
       featured: false,
       status: "In Progress",
@@ -170,7 +170,7 @@ export const site = {
       stack: ["React.js", "Unlayer", "TypeScript", "Tailwind CSS"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/alumniconnect",
+        source: "https://github.com/nodejahnvi/alumniconnect",
       },
       featured: false,
       image: "/project-images/alumniconnect.png",
@@ -203,7 +203,7 @@ export const site = {
   ],
   writing: [] as Post[],
   github: {
-    username: "nodeanurag",
+    username: "nodejahnvi",
     contributionsLastYear: "500+",
   },
   footerNote: "Built with ❤️ and hardwork "

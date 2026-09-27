@@ -48,9 +48,9 @@ export type OpenSourceContribution = {
 };
 
 export const site = {
-  name: "Anurag Jha",
-  firstName: "Anurag",
-  url: "https://anuragdotdev.vercel.app",
+  name: "Jahnvi",
+  firstName: "Jahnvi",
+  url: "https://jahnvidotdev.vercel.app",
   quote: {
     text: "Simplicity is prerequisite for reliability.",
     author: "Edsger W. Dijkstra",
@@ -65,11 +65,11 @@ export const site = {
   role: "Full Stack Developer",
   location: "Delhi, India",
   timezone: "Asia/Kolkata",
-  email: "conveytoanurag@gmail.com",
-  greeting: "Hey, I'm Anurag",
+  email: "conveytojahnvi@gmail.com",
+  greeting: "Hey, I'm Jahnvi",
   tagline: "I build clean, modern websites and web apps where design, functionality, and even the smallest details matter.",
   about: [
-    "Hey, I'm Anurag, a full stack developer who loves building clean, modern websites and apps where design, functionality, and even the smallest details matter, with a focus on making products that are both practical and visually satisfying.",
+    "Hey, I'm Jahnvi, a full stack developer who loves building clean, modern websites and apps where design, functionality, and even the smallest details matter, with a focus on making products that are both practical and visually satisfying.",
     "I spend most of my time in the terminal, the browser, or scribbling on a whiteboard. I lean backend, not because I don't like frontend, but because I enjoy making polished things actually hold up.",
     "I don't ship junk. Maintainability isn't optional. And I build best when I'm curious.",
   ],
@@ -87,13 +87,13 @@ export const site = {
     nowListening: "focus playlists",
   },
   socials: {
-    github: "https://github.com/nodeanurag",
-    twitter: "https://x.com/anuragdotdev",
-    linkedin: "https://linkedin.com/in/nodeanurag",
-    email: "mailto:conveytoanurag@gmail.com",
+    github: "https://github.com/nodejahnvi",
+    twitter: "https://x.com/jahnvidotdev",
+    linkedin: "https://linkedin.com/in/nodejahnvi",
+    email: "mailto:conveytojahnvi@gmail.com",
     resume: "",
     discord: "https://discord.gg/ra4kyKdTk",
-    medium: "https://medium.com/@anuragdotdev",
+    medium: "https://medium.com/@jahnvidotdev",
   },
   experience: [
     {
@@ -183,7 +183,7 @@ export const site = {
       year: "2026",
       links: {
         live: "https://framelabs.vercel.app/",
-        source: "https://github.com/nodeanurag/FrameLabs",
+        source: "https://github.com/nodejahnvi/FrameLabs",
       },
       featured: true,
       image: "/project-images/framelabs.png",
@@ -199,7 +199,7 @@ export const site = {
       year: "2026",
       links: {
         live: "https://doodledash.pages.dev/",
-        source: "https://github.com/nodeanurag/DoodleDash",
+        source: "https://github.com/nodejahnvi/DoodleDash",
       },
       featured: true,
       image: "/project-images/doodledash.png",
@@ -214,7 +214,7 @@ export const site = {
       stack: ["React.js", "Vite", "Zustand", "Monaco Editor", "Pyodide", "Dexie.js"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/codeforge",
+        source: "https://github.com/nodejahnvi/codeforge",
       },
       featured: true,
       status: "In Progress",
@@ -230,7 +230,7 @@ export const site = {
       stack: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS v4", "Zod", "Vitest"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/swiftpoll",
+        source: "https://github.com/nodejahnvi/swiftpoll",
       },
       featured: false,
       image: "/project-images/swiftpoll.png",
@@ -245,7 +245,7 @@ export const site = {
       stack: ["Next.js", "Prisma", "PostgreSQL", "React Query", "@dnd-kit", "Next-Auth"],
       year: "2026",
       links: {
-        source: "https://github.com/nodeanurag/nexus",
+        source: "https://github.com/nodejahnvi/nexus",
       },
       featured: false,
       image: "/project-images/nexus.png",
@@ -282,42 +282,42 @@ export const site = {
       summary: "A comprehensive guide on authentication and authorization architectures, covering passwords, sessions at scale, JWTs, OAuth, WebAuthn, and zero-trust security for backend systems.",
       date: "Sep 11, 2026",
       readingTime: "25 min read",
-      url: "https://medium.com/@anuragdotdev/authentication-authorization-for-backend-engineers-a-complete-guide-f8844e97bddf?sharedUserId=anuragdotdev",
+      url: "https://medium.com/@jahnvidotdev/authentication-authorization-for-backend-engineers-a-complete-guide-f8844e97bddf?sharedUserId=jahnvidotdev",
     },
     {
       title: "Serialization and Deserialization: The Universal Language of Backend Engineering",
       summary: "A deep dive into serialization formats from JSON and XML to Protocol Buffers, exploring schema validation, backward compatibility, and network serialization bottlenecks.",
       date: "Aug 29, 2026",
       readingTime: "14 min read",
-      url: "https://medium.com/@anuragdotdev/serialization-and-deserialization-the-universal-language-of-backend-engineering-8df8ce03d257",
+      url: "https://medium.com/@jahnvidotdev/serialization-and-deserialization-the-universal-language-of-backend-engineering-8df8ce03d257",
     },
     {
       title: "The Ultimate Guide to Routing: From Network Packets to Backend Handlers",
       summary: "A comprehensive exploration of routing across layers, tracing IP packets, hardware routing tables, HTTP multiplexing, and frontend routers.",
       date: "Aug 26, 2026",
       readingTime: "20 min read",
-      url: "https://medium.com/@anuragdotdev/the-ultimate-guide-to-routing-from-network-packets-to-backend-handlers-64cc4f7fdbfa",
+      url: "https://medium.com/@jahnvidotdev/the-ultimate-guide-to-routing-from-network-packets-to-backend-handlers-64cc4f7fdbfa",
     },
     {
       title: "Understanding HTTP: The Backbone of the Web",
       summary: "A deep dive into the Hypertext Transfer Protocol, exploring header lifecycle, request methods, statelessness, and connection optimization from HTTP/1.1 to HTTP/3.",
       date: "Aug 22, 2026",
       readingTime: "15 min read",
-      url: "https://medium.com/@anuragdotdev/understanding-http-the-backbone-of-the-web-3d2109d0facd",
+      url: "https://medium.com/@jahnvidotdev/understanding-http-the-backbone-of-the-web-3d2109d0facd",
     },
     {
       title: "API Rate Limiting: I thought it was just counting requests...",
       summary: "An analysis of rate limiting algorithms from Token Bucket to Sliding Window logs, detailing how distributed systems protect API infrastructure under load.",
       date: "Jul 12, 2026",
       readingTime: "14 min read",
-      url: "https://medium.com/@anuragdotdev/api-rate-limiting-i-thought-it-was-just-counting-requests-682cefa2f56c",
+      url: "https://medium.com/@jahnvidotdev/api-rate-limiting-i-thought-it-was-just-counting-requests-682cefa2f56c",
     },
     {
       title: "The JWT Storage Debate is Over: Here's the Production-Grade Architecture Your App Actually Needs",
       summary: "A definitive guide to JWT storage in frontend applications, detailing why standard localStorage fails and how to implement secure memory-session architecture with HTTP-only cookies.",
       date: "Jun 24, 2026",
       readingTime: "8 min read",
-      url: "https://medium.com/@anuragdotdev/the-jwt-storage-debate-is-over-heres-the-production-grade-architecture-your-app-actually-needs-9ab284da065f",
+      url: "https://medium.com/@jahnvidotdev/the-jwt-storage-debate-is-over-heres-the-production-grade-architecture-your-app-actually-needs-9ab284da065f",
     }
   ] as Post[],
   openSourceContributions: [
@@ -373,7 +373,7 @@ export const site = {
     },
   ] as OpenSourceContribution[],
   github: {
-    username: "nodeanurag",
+    username: "nodejahnvi",
     contributionsLastYear: "500+",
   },
   footerNote: "Built with ❤️ and hardwork"

@@ -29,32 +29,32 @@ const hoverCardsData: Record<string, {
   bannerText: string;
 }> = {
   github: {
-    handle: "@nodeanurag",
+    handle: "@nodejahnvi",
     bio: "Full Stack Developer. Building products, learning technologies, shipping consistently. Obsessed with clean code.",
     stats: ["5+ Projects", "500+ Contributions"],
     bannerText: "learn • build • ship",
   },
   twitter: {
-    handle: "@anuragdotdev",
+    handle: "@jahnvidotdev",
     bio: "Building clean, modern web apps where design, functionality, and even the smallest details matter.",
     stats: ["Tech Thoughts", "Dev Twitter"],
     bannerText: "connect • share • grow",
   },
   linkedin: {
     pronouns: "He/Him",
-    handle: "in/nodeanurag",
+    handle: "in/nodejahnvi",
     bio: "Frontend & Backend Developer. Experienced in React, Next.js, Node.js, and database systems.",
     stats: ["Open to Work", "Delhi, India"],
     bannerText: "network • build • impact",
   },
   medium: {
-    handle: "@anuragdotdev",
+    handle: "@jahnvidotdev",
     bio: "Writing technical articles about software development, system design, React, and backend architecture.",
     stats: ["Tech Articles", "Blog Posts"],
     bannerText: "write • share • read",
   },
   email: {
-    handle: "conveytoanurag@gmail.com",
+    handle: "conveytojahnvi@gmail.com",
     bio: "Available for contract work, internship opportunities, and collaborative software engineering projects.",
     stats: ["Fast Response", "Direct Email"],
     bannerText: "collab • contact • direct",
@@ -66,7 +66,7 @@ const hoverCardsData: Record<string, {
     bannerText: "skills • experience • cv",
   },
   discord: {
-    handle: "anurag.dev",
+    handle: "jahnvi.dev",
     bio: "Join my server or drop a DM to chat about web dev, coding challenges, or side projects.",
     stats: ["Developer Chat", "Active DM"],
     bannerText: "hangout • chat • code",

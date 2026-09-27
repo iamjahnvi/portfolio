@@ -18,7 +18,6 @@ export function Hero() {
   const roles = [
     "Full Stack Developer.",
     "Backend Engineer.",
-    "Open Source Contributor.",
     "Problem Solver."
   ];
   const [roleIndex, setRoleIndex] = useState(0);

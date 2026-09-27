@@ -61,15 +61,6 @@ export function ProjectCard({ p, i }: { p: Project; i: number }) {
             {/* Background Grid Pattern */}
             <div className="bg-grid absolute inset-0 opacity-20 pointer-events-none" />
 
-            {/* Viewfinder Reticles & Outer Frame */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 font-mono text-[9px] text-white">
-              <div className="absolute inset-0 border border-white/20 rounded-xl pointer-events-none" />
-              <div className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t border-l border-white/70" />
-              <div className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t border-r border-white/70" />
-              <div className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b border-l border-white/70" />
-              <div className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b border-r border-white/70" />
-            </div>
-
             {/* Top Badges Row */}
             <div className="relative z-20 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">

@@ -1,20 +1,80 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Shell, SectionHeader } from "@/components/Layout";
-import { useGithubHeatmap } from "@/hooks/useGithubHeatmap";
+import { useGithubHeatmap, type HeatDay } from "@/hooks/useGithubHeatmap";
+import { useTheme } from "@/components/theme-provider";
 import { site } from "@/config/site";
 import { ExternalLink } from "lucide-react";
 
-const HEAT_OPACITY = [0.07, 0.25, 0.45, 0.7, 1];
-const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+// Official GitHub contribution greens (dark + light themes).
+const DARK_GREENS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+const LIGHT_GREENS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
+
+function formatDayLabel(iso: string): string {
+  const d = new Date(`${iso}T00:00:00`);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function formatTooltip(count: number, iso: string): string {
+  const label = formatDayLabel(iso);
+  if (count === 0) return `No contributions on ${label}`;
+  return `${count} contribution${count === 1 ? "" : "s"} on ${label}`;
+}
+
+interface HoverTip {
+  text: string;
+  x: number;
+  y: number;
+  below: boolean;
+}
 
 export function GithubActivity() {
   const username = site.github.username;
   const heatmap = useGithubHeatmap(username);
+  const { theme } = useTheme();
+  const greens = theme === "light" ? LIGHT_GREENS : DARK_GREENS;
+  const [hover, setHover] = useState<HoverTip | null>(null);
 
-  const monthLabels = useMemo(() => {
-    const now = new Date();
-    return Array.from({ length: 12 }, (_, i) => MONTH_NAMES[(now.getMonth() + 1 + i) % 12]);
+  // Hide the tooltip on scroll so it never floats stale or clipped.
+  useEffect(() => {
+    const hide = () => setHover(null);
+    window.addEventListener("scroll", hide, true);
+    return () => window.removeEventListener("scroll", hide, true);
   }, []);
+
+  const handleCellEnter = (day: HeatDay) => (e: React.MouseEvent<HTMLSpanElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const centerX = r.left + r.width / 2;
+    // Clamp horizontally so the tooltip never runs off-screen.
+    const x = Math.min(Math.max(centerX, 130), window.innerWidth - 130);
+    // Flip below the cell when there is no room above (top rows).
+    const below = r.top < 70;
+    setHover({
+      text: formatTooltip(day.count, day.date),
+      x,
+      y: below ? r.bottom + 10 : r.top - 10,
+      below,
+    });
+  };
+
+  const handleCellLeave = () => setHover(null);
+
+  // Month labels pinned to the week column where each month starts.
+  const monthLabels = useMemo(() => {
+    const numCols = Math.ceil(heatmap.days.length / 7);
+    const labels: { col: number; name: string }[] = [];
+    for (let c = 0; c < numCols; c++) {
+      const day = heatmap.days[c * 7];
+      if (!day) continue;
+      const d = new Date(`${day.date}T00:00:00`);
+      if (d.getDate() <= 7) {
+        labels.push({
+          col: c,
+          name: d.toLocaleDateString("en-US", { month: "short" }),
+        });
+      }
+    }
+    return { labels, numCols };
+  }, [heatmap.days]);
 
   return (
     <div id="github">
@@ -36,22 +96,30 @@ export function GithubActivity() {
         <div className="onyx-scroll overflow-x-auto pb-2">
           <div className="min-w-[640px]">
             {/* Month labels at the top */}
-            <div className="mb-1.5 flex justify-between pr-8 font-mono text-[10px] text-[var(--soft)]">
-              {monthLabels.map((m, i) => (
-                <span key={m + i}>{m}</span>
+            <div className="relative mb-1.5 h-3.5 pr-8 font-mono text-[10px] text-[var(--soft)]">
+              {monthLabels.labels.map((m, i) => (
+                <span
+                  key={`${m.name}-${i}`}
+                  className="absolute"
+                  style={{ left: `${(m.col / monthLabels.numCols) * 100}%` }}
+                >
+                  {m.name}
+                </span>
               ))}
             </div>
 
             {/* Heatmap Grid */}
             <div className="grid grid-flow-col grid-rows-7 gap-[3px]">
-              {heatmap.cells.map((lvl, i) =>
-                lvl === null ? (
+              {heatmap.days.map((day, i) =>
+                day === null ? (
                   <span key={i} className="size-[10px]" />
                 ) : (
                   <span
                     key={i}
-                    className="size-[10px] rounded-[2px] bg-[var(--fg)] transition-transform duration-150 hover:scale-125"
-                    style={{ opacity: HEAT_OPACITY[lvl] }}
+                    onMouseEnter={handleCellEnter(day)}
+                    onMouseLeave={handleCellLeave}
+                    className="size-[10px] cursor-pointer rounded-[2px] transition-transform duration-150 hover:scale-125 hover:outline hover:outline-2 hover:outline-offset-1 hover:outline-white/40"
+                    style={{ backgroundColor: greens[day.level] }}
                   />
                 ),
               )}
@@ -60,12 +128,18 @@ export function GithubActivity() {
             {/* Info and stats at the bottom */}
             <div className="mt-2.5 flex items-center justify-between font-mono text-[11px] text-[var(--muted)]">
               <span>
-                {heatmap.live ? `${heatmap.total} contributions in the last year` : "500+ commits in the last year"}
+                {heatmap.live
+                  ? `${heatmap.total} contributions in the last year`
+                  : "Live GitHub data unavailable right now"}
               </span>
               <span className="flex items-center gap-1.5">
                 Less
-                {HEAT_OPACITY.map((o) => (
-                  <span key={o} className="size-[10px] rounded-[2px] bg-[var(--fg)]" style={{ opacity: o }} />
+                {greens.map((g) => (
+                  <span
+                    key={g}
+                    className="size-[10px] rounded-[2px]"
+                    style={{ backgroundColor: g }}
+                  />
                 ))}
                 More
               </span>
@@ -73,6 +147,20 @@ export function GithubActivity() {
           </div>
         </div>
       </Shell>
+
+      {/* Viewport-fixed tooltip (like github.com) — never clipped by the scroll container. */}
+      {hover && (
+        <div
+          className="pointer-events-none fixed z-[200] whitespace-nowrap rounded-md bg-[#1f2328] px-3 py-1.5 font-mono text-[12px] font-medium text-white shadow-xl ring-1 ring-white/15"
+          style={{
+            left: hover.x,
+            top: hover.y,
+            transform: hover.below ? "translate(-50%, 0)" : "translate(-50%, -100%)",
+          }}
+        >
+          {hover.text}
+        </div>
+      )}
     </div>
   );
 }

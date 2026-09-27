@@ -14,12 +14,10 @@ A high-performance, responsive, and aesthetically premium personal portfolio bui
 ## Features
 
 - **Typographic & CRT Grid Design:** Sleek retro layout system using dashed alignment columns, custom serif layouts, scanline overlays, and grayscale images.
-- **Switchable Profile Avatar:** Rotate through different custom profile images by clicking the avatar frame directly or the quick rotate trigger icon.
 - **Search Command Palette (`⌘K` / `Ctrl+K`):** Dynamic keyboard-accessible command menu with shortcuts to jump directly to page sections, external socials, or toggle themes.
 - **Interactive GitHub Contributions Matrix:** Asynchronous heatmap fetching live contribution levels directly from the GitHub API using a custom React hook, displayed in a responsive 7-row calendar grid.
 - **Fading Quotes Rotator:** An interactive inspiration panel in the footer cycling through selected quotes (Steve Jobs, Elon Musk, Luffy, Naruto, Zuckerberg) with custom fading transitions.
 - **Konami Code Easter Egg:** Listening for classic trigger keys ("jahnvi" or the classic Konami sequence) to activate interactive falling confetti achievements.
-- **Writing / Blog Integration:** Centered grid writing section displaying technical essays and system architecture reviews synced directly to Medium.
 
 ## Getting Started
 

@@ -19,20 +19,6 @@ export function ProjectCard({ project: p, index = 0 }: { project: Project; index
         <div className={`relative mb-4 h-48 w-full overflow-hidden rounded-lg border border-[var(--line)] bg-gradient-to-br ${getProjectGradient(index)} p-3 flex flex-col justify-between`}>
           <div className="bg-stripes absolute inset-0 opacity-20 pointer-events-none" />
 
-          {/* Viewfinder Reticles (Camera REC / ISO) */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 font-mono text-[9px] text-white">
-            <div className="absolute top-2.5 left-2.5 w-2.5 h-2.5 border-t border-l border-white/70" />
-            <div className="absolute top-2.5 right-2.5 w-2.5 h-2.5 border-t border-r border-white/70" />
-            <div className="absolute bottom-2.5 left-2.5 w-2.5 h-2.5 border-b border-l border-white/70" />
-            <div className="absolute bottom-2.5 right-2.5 w-2.5 h-2.5 border-b border-r border-white/70" />
-            <div className="absolute top-2.5 left-7 flex items-center gap-1 text-[8px] font-semibold text-white/80">
-              <span className="size-1.5 rounded-full bg-rose-500 animate-pulse" /> REC
-            </div>
-            <div className="absolute top-2.5 right-7 text-[8px] text-white/80 font-semibold">
-              ISO 400
-            </div>
-          </div>
-
           {/* Top Badges Row */}
           <div className="relative z-20 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">

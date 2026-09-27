@@ -2,26 +2,18 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shell } from "@/components/Layout";
 import { site } from "@/config/site";
-import { MapPin, Search, RotateCw, Eye } from "lucide-react";
+import { MapPin, Search, Eye } from "lucide-react";
 import { useVisitor } from "@/context/VisitorContext";
 
 const HEADLINE_TITLES = [
   "Full Stack Developer",
   "Backend Engineer",
-  "Open Source Contributor",
   "Clean Code Advocate",
 ];
 
 export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
   const [headlineIndex, setHeadlineIndex] = useState(0);
-  const [imgIndex, setImgIndex] = useState(0);
   const { count, isLoading } = useVisitor();
-
-  const handleNextImage = () => {
-    const nextIndex = (imgIndex + 1) % site.profileImages.length;
-    setImgIndex(nextIndex);
-    window.dispatchEvent(new CustomEvent("profileImageChanged", { detail: nextIndex }));
-  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -57,36 +49,22 @@ export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
           className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-6 justify-between"
         >
           <div className="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-5">
-            <div 
-              onClick={handleNextImage}
-              className="relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--chip)] shadow-md group cursor-pointer select-none animate-fade-up"
-              title="Click to change profile image"
+            <div
+              className="relative grid size-20 shrink-0 place-items-center overflow-hidden rounded-xl border border-[var(--line)] bg-[var(--chip)] shadow-md select-none animate-fade-up"
             >
               {/* Main Avatar Image */}
               <img
-                src={site.profileImages[imgIndex]}
+                src={site.profileImages[0]}
                 alt={site.name}
                 loading="eager"
                 decoding="async"
-                className="h-full w-full object-cover pointer-events-none"
+                className="h-full w-full object-cover"
               />
 
               {/* CRT scanline overlay */}
-              <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden opacity-[0.18] group-hover:opacity-30 transition-opacity bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]">
+              <div className="absolute inset-0 pointer-events-none rounded-xl overflow-hidden opacity-[0.18] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]">
                 <div className="absolute inset-0 h-1 bg-white/20 blur-[1px] animate-scanline" />
               </div>
-
-              {/* Switch image icon */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNextImage();
-                }}
-                className="absolute right-1 top-1 rounded-full border border-[var(--line)] bg-[var(--chip)] p-1 text-[var(--muted)] transition-all hover:text-[var(--fg)] hover:scale-110 sm:opacity-100 opacity-0 group-hover:opacity-100 z-20 cursor-pointer shadow-sm"
-                aria-label="Switch profile image"
-              >
-                <RotateCw size={10} strokeWidth={2} />
-              </button>
             </div>
             <div>
               <h1 className="font-serif text-3xl sm:text-[38px] leading-none tracking-tight text-[var(--fg)] text-glitch">

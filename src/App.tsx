@@ -10,12 +10,9 @@ import { About } from "@/sections/About";
 import { Contact } from "@/sections/Contact";
 import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
-import { OpenSource } from "@/sections/OpenSource";
 import { TechStack } from "@/sections/TechStack";
-import { Writing } from "@/sections/Writing";
 import { GithubActivity } from "@/sections/GithubActivity";
 import { CommandPalette } from "@/components/command-palette";
-import { WritingPage } from "@/pages/WritingPage";
 import { Konami } from "@/components/konami";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -44,10 +41,8 @@ function MainLayout({ onOpenPalette }: { onOpenPalette: () => void }) {
       <About />
       <Contact />
       <Projects isSearchable={false} />
-      <Experience isDetailed={false} />
-      <OpenSource />
+      <Experience />
       <TechStack />
-      <Writing limit={4} />
       <GithubActivity />
     </>
   );
@@ -86,13 +81,11 @@ export function App() {
                   path="/experience"
                   element={
                     <>
-                      <Experience isDetailed={true} />
-                      <OpenSource />
+                      <Experience />
                     </>
                   }
                 />
                 <Route path="/contact" element={<Contact />} />
-                <Route path="/writing" element={<WritingPage />} />
               </Routes>
             </main>
 

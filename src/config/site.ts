@@ -61,7 +61,7 @@ export const site = {
     twitter: "https://x.com/fireflybuilds",
     linkedin: "https://linkedin.com/in/jahnvi-11a189358/",
     email: "mailto:conveytojahnvi@gmail.com",
-    resume: "",
+    resume: "https://drive.google.com/file/d/1NQwCDHVQZxRd_hUnQ2vSI3dQX3SNb8Js/view?usp=sharing",
     discord: "https://discord.gg/ra4kyKdTk",
     medium: "https://medium.com/@jahnvidotdev",
   },

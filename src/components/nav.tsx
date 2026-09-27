@@ -2,13 +2,10 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Shell } from "@/components/Layout";
 import { site } from "@/config/site";
-import { useTheme } from "./theme-provider";
-import { Sun, Moon, Search, Menu, X } from "lucide-react";
+import { Search, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Nav({ onOpenPalette }: { onOpenPalette?: () => void }) {
-  const { theme, toggleTheme } = useTheme();
-  const dark = theme === "dark";
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -62,38 +59,20 @@ export function Nav({ onOpenPalette }: { onOpenPalette?: () => void }) {
               <Search className="size-3.5" />
             </button>
           )}
-
-          <button
-            type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="grid size-7 place-items-center rounded-full border border-[var(--line)] text-[var(--muted)] transition-all duration-300 hover:rotate-45 hover:text-[var(--fg)] cursor-pointer"
-          >
-            {dark ? <Sun className="size-3.5" /> : <Moon className="size-3.5" />}
-          </button>
         </nav>
 
         {/* Mobile Navigation Trigger Button */}
         <div className="flex sm:hidden items-center gap-3">
           {onOpenPalette && (
-            <button
-              type="button"
-              onClick={onOpenPalette}
-              aria-label="Search Command Palette"
-              className="grid size-8 place-items-center rounded-full border border-[var(--line)] text-[var(--muted)] hover:text-[var(--fg)] cursor-pointer"
-            >
-              <Search className="size-4" />
-            </button>
-          )}
-
           <button
             type="button"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
+            onClick={onOpenPalette}
+            aria-label="Search Command Palette"
             className="grid size-8 place-items-center rounded-full border border-[var(--line)] text-[var(--muted)] hover:text-[var(--fg)] cursor-pointer"
           >
-            {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+            <Search className="size-4" />
           </button>
+          )}
 
           <button
             type="button"

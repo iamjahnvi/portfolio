@@ -13,6 +13,7 @@ import { Experience } from "@/sections/Experience";
 import { TechStack } from "@/sections/TechStack";
 import { GithubActivity } from "@/sections/GithubActivity";
 import { CommandPalette } from "@/components/command-palette";
+import { PullCord } from "@/components/PullCord";
 import { Konami } from "@/components/konami";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -71,6 +72,7 @@ export function App() {
           <Konami />
           <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
             <Nav onOpenPalette={() => setPaletteOpen(true)} />
+            <PullCord />
             <SideIndex />
 
             <main className="relative z-10">

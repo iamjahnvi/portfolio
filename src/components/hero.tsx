@@ -75,11 +75,15 @@ export function Hero() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative h-36 w-full overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 sm:h-48"
         >
-          <img
-            src={site.bannerImage}
-            alt="Banner"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="h-full w-full object-cover object-center"
-          />
+          >
+            <source src={site.bannerVideo} type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent pointer-events-none" />
         </motion.div>
 

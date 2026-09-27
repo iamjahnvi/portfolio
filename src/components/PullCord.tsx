@@ -319,9 +319,9 @@ export function PullCord() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.7 }}
-        className="absolute top-[80px] right-[48px] hidden sm:block text-right select-none pointer-events-none whitespace-nowrap font-serif"
+        className="absolute top-[80px] right-[48px] hidden sm:block text-right select-none pointer-events-none whitespace-nowrap monospace"
         style={{
-          fontSize: "1.05rem",
+          fontSize: "1.00rem",
           lineHeight: 0.80,
           color: dark ? "var(--muted)" : "var(--muted)",
           letterSpacing: "0.01em",

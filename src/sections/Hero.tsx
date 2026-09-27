@@ -27,13 +27,15 @@ export function Hero({ onOpenPalette }: { onOpenPalette?: () => void }) {
       {/* Cover Banner */}
       <Shell className="px-2 pt-2 sm:px-3 sm:pt-3">
         <div className="relative h-36 overflow-hidden rounded-xl bg-neutral-950 sm:h-44 border border-[var(--line)]">
-          <img
-            src={site.bannerImage}
-            alt="Starry Night banner"
-            loading="eager"
-            decoding="async"
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover object-center opacity-90 transition-opacity duration-300 hover:opacity-100"
-          />
+          >
+            <source src={site.bannerVideo} type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)]/40 to-transparent" />
           <div className="absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.05)_0,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_5px)]" />
           <div className="absolute inset-0 [background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0.12)_0,rgba(0,0,0,0.12)_1px,transparent_1px,transparent_28px)] opacity-30" />

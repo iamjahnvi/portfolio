@@ -322,7 +322,7 @@ export function PullCord() {
         className="absolute top-[80px] right-[48px] hidden sm:block text-right select-none pointer-events-none whitespace-nowrap font-serif"
         style={{
           fontSize: "1.05rem",
-          lineHeight: 1.05,
+          lineHeight: 0.80,
           color: dark ? "var(--muted)" : "var(--muted)",
           letterSpacing: "0.01em",
         }}

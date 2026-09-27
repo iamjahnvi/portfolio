@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "./theme-provider";
 
-// Verlet-rope lamp cord (leeter.site style): a 17-point rope simulated
+// Verlet-rope lamp cord (leeter.site style): a 16-segment rope simulated
 // per-frame with gravity + damping, so it bends, stretches with resistance,
 // clicks mid-pull, and keeps momentum for a pendulum sway on release.
 const SEGMENTS = 16;
@@ -35,14 +35,14 @@ function freshRope(): Pt[] {
 }
 
 function smoothPath(pts: Pt[]): string {
-  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)}`;
+  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
   for (let i = 1; i < pts.length - 1; i++) {
-    const mx = ((pts[i].x + pts[i + 1].x) / 2).toFixed(2);
-    const my = ((pts[i].y + pts[i + 1].y) / 2).toFixed(2);
-    d += ` Q ${pts[i].x.toFixed(2)} ${pts[i].y.toFixed(2)} ${mx} ${my}`;
+    const mx = ((pts[i].x + pts[i + 1].x) / 2).toFixed(1);
+    const my = ((pts[i].y + pts[i + 1].y) / 2).toFixed(1);
+    d += ` Q ${pts[i].x.toFixed(1)} ${pts[i].y.toFixed(1)} ${mx} ${my}`;
   }
   const last = pts[pts.length - 1];
-  d += ` L ${last.x.toFixed(2)} ${last.y.toFixed(2)}`;
+  d += ` L ${last.x.toFixed(1)} ${last.y.toFixed(1)}`;
   return d;
 }
 
@@ -92,7 +92,6 @@ export function PullCord() {
     for (let i = 1; i < pts.length; i++) {
       const p = pts[i];
       if (s.dragging && i === lastIdx) {
-        // Pinned to the pointer; freeze velocity while held.
         p.ox = p.x;
         p.oy = p.y;
         p.x = s.dragX;
@@ -164,7 +163,6 @@ export function PullCord() {
   const endDrag = () => {
     const s = simRef.current;
     if (!s.dragging) return;
-    // Preserve momentum on release (clamped), so the cord swings.
     const last = ptsRef.current[ptsRef.current.length - 1];
     const vx = last.x - last.ox;
     const vy = last.y - last.oy;
@@ -180,7 +178,7 @@ export function PullCord() {
 
   const flick = () => {
     const last = ptsRef.current[ptsRef.current.length - 1];
-    last.oy -= MAX_VELOCITY;
+    last.oy -= 22;
     wake();
   };
 
@@ -188,11 +186,17 @@ export function PullCord() {
     reducedRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     render();
     if (!reducedRef.current) {
-      // Gentle diagonal tug on entrance so it sways in like a real cord.
-      const last = ptsRef.current[ptsRef.current.length - 1];
-      last.oy -= 13;
-      last.ox -= 6;
-      wake();
+      // 1.7s delayed entrance tug matching leeter.site
+      const timer = window.setTimeout(() => {
+        const last = ptsRef.current[ptsRef.current.length - 1];
+        last.oy -= 13;
+        last.ox -= 6;
+        wake();
+      }, 1700);
+      return () => {
+        window.clearTimeout(timer);
+        cancelAnimationFrame(simRef.current.raf);
+      };
     }
     return () => cancelAnimationFrame(simRef.current.raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -222,12 +226,10 @@ export function PullCord() {
     const dy = e.clientY - s.startY;
     const ext = Math.hypot(dx, dy);
     if (ext > 6) s.moved = true;
-    // Hard stretch limit with radial clamping (resistance feel).
     const max = REST_TOTAL + STRETCH_MAX;
     const k = ext > max ? max / ext : 1;
     s.dragX = ANCHOR_X + dx * k;
     s.dragY = REST_TOTAL + dy * k;
-    // The "click": fires once, mid-pull — dark becomes light and vice versa.
     if (!s.pulled && ext - REST_TOTAL >= STRETCH_TOGGLE) {
       s.pulled = true;
       toggleRef.current();
@@ -236,7 +238,6 @@ export function PullCord() {
 
   const handleClick = (e: React.MouseEvent) => {
     if (reducedRef.current) return;
-    // A plain tap (not a drag) flicks the cord and toggles.
     if (!simRef.current.moved && e.detail !== 0) {
       flick();
       toggleRef.current();
@@ -253,7 +254,7 @@ export function PullCord() {
   };
 
   return (
-    <div className="pointer-events-none fixed top-0 right-6 z-[60] h-[340px] w-16 sm:right-[150px]">
+    <div className="pointer-events-none fixed top-0 right-4 sm:right-10 md:right-14 lg:right-20 xl:right-[calc(50%-450px)] z-50 h-[340px] w-16">
       <svg
         viewBox="0 0 64 340"
         width={64}
@@ -295,7 +296,7 @@ export function PullCord() {
         </g>
       </svg>
 
-      {/* Generous invisible grab area over the resting knob. */}
+      {/* Invisible interactive grab button */}
       <button
         type="button"
         onPointerDown={handlePointerDown}
@@ -318,18 +319,16 @@ export function PullCord() {
         }}
       />
 
-      {/* Handwritten hint, fades in shortly after load. */}
+      {/* Handwritten hint copy matching leeter.site, positioned cleanly without overlap */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.7 }}
-        className="absolute top-[150px] right-[70px] text-right font-medium whitespace-nowrap select-none"
+        className="absolute top-[148px] right-[66px] hidden sm:block text-right font-handwriting font-semibold whitespace-nowrap select-none pointer-events-none"
         style={{
-          fontFamily: "'Caveat', cursive",
           fontSize: "1.15rem",
           lineHeight: 1,
-          color: "var(--soft)",
-          pointerEvents: "none",
+          color: dark ? "#736E63" : "#81818B",
         }}
       >
         pull the

@@ -110,6 +110,7 @@
   --font-sans: 'Amiamie', 'Inter', system-ui, sans-serif;
   --font-amiamie-round: 'Amiamie-Round', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-handwriting: 'Caveat', cursive;
 }
 
 .light {
@@ -160,6 +161,21 @@ body {
 
 .font-mono {
   font-family: var(--font-mono);
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+@keyframes pullCordHintFade {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* RGB Chromatic Aberration Text Shadow */

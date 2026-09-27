@@ -29,13 +29,13 @@ const hoverCardsData: Record<string, {
   bannerText: string;
 }> = {
   github: {
-    handle: "@nodejahnvi",
+    handle: "@iamjahnvi",
     bio: "Full Stack Developer. Building products, learning technologies, shipping consistently. Obsessed with clean code.",
     stats: ["5+ Projects", "500+ Contributions"],
     bannerText: "learn • build • ship",
   },
   twitter: {
-    handle: "@jahnvidotdev",
+    handle: "@fireflybuilds",
     bio: "Building clean, modern web apps where design, functionality, and even the smallest details matter.",
     stats: ["Tech Thoughts", "Dev Twitter"],
     bannerText: "connect • share • grow",

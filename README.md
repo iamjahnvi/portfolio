@@ -18,7 +18,6 @@ A high-performance, responsive, and aesthetically premium personal portfolio bui
 - **Search Command Palette (`⌘K` / `Ctrl+K`):** Dynamic keyboard-accessible command menu with shortcuts to jump directly to page sections, external socials, or toggle themes.
 - **Interactive GitHub Contributions Matrix:** Asynchronous heatmap fetching live contribution levels directly from the GitHub API using a custom React hook, displayed in a responsive 7-row calendar grid.
 - **Fading Quotes Rotator:** An interactive inspiration panel in the footer cycling through selected quotes (Steve Jobs, Elon Musk, Luffy, Naruto, Zuckerberg) with custom fading transitions.
-- **Pixel Cat Cursor Follower:** Interactive classic `oneko.js` pixel cat that follows the user's cursor across the screen, complete with automatic cleanup and nested route loading support.
 - **Konami Code Easter Egg:** Listening for classic trigger keys ("jahnvi" or the classic Konami sequence) to activate interactive falling confetti achievements.
 - **Writing / Blog Integration:** Centered grid writing section displaying technical essays and system architecture reviews synced directly to Medium.
 

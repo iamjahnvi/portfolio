@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { site, type Project } from "@/config/site";
 import { Reveal } from "@/components/reveal";
 import { ProjectCard } from "@/components/projects";
-import { Search, Filter, X, ArrowUpRight, ExternalLink } from "lucide-react";
+import { Search, X, ArrowUpRight, ExternalLink } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -12,15 +12,12 @@ export function ProjectsPage() {
   const initialSearch = searchParams.get("search") || "";
   
   const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
 
   useEffect(() => {
     const q = searchParams.get("search");
     if (q !== null) setSearchQuery(q);
   }, [searchParams]);
-
-  const categories = ["All", "Frontend", "Backend", "Fullstack"];
 
   const filteredProjects = useMemo(() => {
     return site.projects.filter((p) => {
@@ -30,13 +27,9 @@ export function ProjectsPage() {
         p.blurb.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.stack.some((tech) => tech.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      const matchesCategory =
-        selectedCategory === "All" ||
-        (p.categories && p.categories.includes(selectedCategory as any));
-
-      return matchesSearch && matchesCategory;
+      return matchesSearch;
     });
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery]);
 
   return (
     <main className="min-h-screen pt-28">
@@ -46,14 +39,14 @@ export function ProjectsPage() {
             02 / Portfolio Archive
           </span>
           <h1 className="font-serif text-4xl sm:text-6xl text-[var(--fg)] font-normal mt-2">
-            Projects & Work
+            Projects
           </h1>
           <p className="mt-3 text-[var(--muted)] text-lg max-w-2xl leading-relaxed">
             A comprehensive gallery of products, developer tools, games, and web apps I&apos;ve engineered.
           </p>
         </Reveal>
 
-        {/* Search & Category Filter Controls */}
+        {/* Search Controls */}
         <Reveal delay={0.1}>
           <div className="mt-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 rounded-xl border border-[var(--line)] bg-[var(--card)] p-4">
             {/* Search Input Bar */}
@@ -74,24 +67,6 @@ export function ProjectsPage() {
                   <X size={16} />
                 </button>
               )}
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-              <Filter size={16} className="text-[var(--soft)] shrink-0 hidden sm:inline" />
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`rounded-lg border px-3.5 py-1.5 font-mono text-xs font-semibold transition-all shrink-0 cursor-pointer ${
-                    selectedCategory === cat
-                      ? "border-[var(--fg)] bg-[var(--fg)] text-[var(--bg)] shadow-sm"
-                      : "border-[var(--line)] bg-[var(--chip)] text-[var(--muted)] hover:border-[var(--soft)] hover:text-[var(--fg)]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
             </div>
           </div>
         </Reveal>
@@ -116,11 +91,10 @@ export function ProjectsPage() {
         {filteredProjects.length === 0 && (
           <div className="mt-12 rounded-xl border border-dashed border-[var(--line)] bg-[var(--card)] p-12 text-center font-mono text-[var(--muted)]">
             <p className="text-base font-semibold text-[var(--fg)]">No projects found matching your search criteria.</p>
-            <p className="text-xs text-[var(--soft)] mt-2">Try clearing your search query or selecting a different category filter.</p>
+            <p className="text-xs text-[var(--soft)] mt-2">Try clearing your search query.</p>
             <button
               onClick={() => {
                 setSearchQuery("");
-                setSelectedCategory("All");
               }}
               className="mt-4 rounded-lg border border-[var(--line)] bg-[var(--fg)] text-[var(--bg)] px-4 py-2 text-xs font-semibold hover:bg-[var(--muted)] cursor-pointer"
             >

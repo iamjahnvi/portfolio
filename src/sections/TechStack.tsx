@@ -95,7 +95,6 @@ export function TechStack() {
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill) => {
               const iconName = SKILL_ICONS[skill] || "lucide:code-2";
-              const isShadcn = iconName === "simple-icons:shadcnui";
               return (
                 <motion.span
                   key={skill}
@@ -104,15 +103,13 @@ export function TechStack() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 25 }}
-                  className="flex cursor-default items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--fg)] hover:bg-[var(--fg)] hover:text-[var(--bg)] shadow-xs group"
+                  className="group flex cursor-default items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--muted)]"
                 >
-                  <Icon 
-                    icon={iconName} 
+                  <Icon
+                    icon={iconName}
                     width={16}
                     height={16}
-                    className={`size-4 shrink-0 transition-colors ${
-                      isShadcn ? "text-current" : ""
-                    } group-hover:filter group-hover:brightness-110`} 
+                    className="size-4 shrink-0 grayscale transition-[filter] duration-200 group-hover:grayscale-0"
                   />
                   {skill}
                 </motion.span>

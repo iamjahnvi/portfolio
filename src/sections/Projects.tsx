@@ -6,16 +6,10 @@ import { ProjectCard } from "./ProjectCard";
 import { Search, X } from "lucide-react";
 
 export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
-  const [projectTab, setProjectTab] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
 
   const displayedProjects = useMemo(() => {
     return site.projects.filter((p) => {
-      // Category filter
-      if (projectTab === "Frontend" && !p.categories?.includes("Frontend")) return false;
-      if (projectTab === "Backend" && !p.categories?.includes("Backend")) return false;
-      if (projectTab === "Fullstack" && !p.categories?.includes("Fullstack")) return false;
-      
       // Search filter
       if (isSearchable && searchQuery) {
         const q = searchQuery.toLowerCase();
@@ -27,33 +21,11 @@ export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
       }
       return true;
     });
-  }, [projectTab, searchQuery, isSearchable]);
+  }, [searchQuery, isSearchable]);
 
   return (
     <div id="projects">
-      <SectionHeader
-        title="Projects"
-        aside={
-          !isSearchable ? (
-            <div className="flex gap-1 rounded-lg border border-[var(--line)] bg-[var(--chip)] p-0.5">
-              {["All", "Frontend", "Backend", "Fullstack"].map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setProjectTab(tab)}
-                  className={`flex items-center justify-center text-center rounded-md px-2.5 py-1 text-[11px] font-medium transition-all duration-200 cursor-pointer ${
-                    projectTab === tab
-                      ? "bg-[var(--fg)] text-[var(--bg)] shadow-sm font-semibold"
-                      : "text-[var(--muted)] hover:text-[var(--fg)]"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-          ) : undefined
-        }
-      />
+      <SectionHeader title="Projects" />
       <Shell className="px-6 py-6 sm:px-8">
         {/* Search Bar Dashboard (when isSearchable is true) */}
         {isSearchable && (
@@ -75,23 +47,6 @@ export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
                   <X className="size-3.5" />
                 </button>
               )}
-            </div>
-
-            <div className="flex gap-1 rounded-lg border border-[var(--line)] bg-[var(--chip)] p-0.5">
-              {["All", "Frontend", "Backend", "Fullstack"].map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setProjectTab(tab)}
-                  className={`flex items-center justify-center text-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-medium transition-all duration-200 cursor-pointer ${
-                    projectTab === tab
-                      ? "bg-[var(--fg)] text-[var(--bg)] shadow-sm font-semibold"
-                      : "text-[var(--muted)] hover:text-[var(--fg)]"
-                  }`}
-                >
-                  <span>{tab}</span>
-                </button>
-              ))}
             </div>
           </div>
         )}

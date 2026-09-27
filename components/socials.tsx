@@ -32,14 +32,14 @@ const hoverCardsData: Record<string, {
   bannerGradient: string;
 }> = {
   github: {
-    handle: "@nodejahnvi",
+    handle: "@iamjahnvi",
     bio: "Full Stack Developer. Building products, learning technologies, shipping consistently. Obsessed with clean code.",
     stats: ["5+ Projects", "500+ Contributions"],
     bannerText: "learn • build • ship",
     bannerGradient: "from-neutral-900 to-neutral-800",
   },
   twitter: {
-    handle: "@jahnvidotdev",
+    handle: "@fireflybuilds",
     bio: "Building clean, modern web apps where design, functionality, and even the smallest details matter.",
     stats: ["100+ Followers", "Tech bro"],
     bannerText: "connect • share • grow",

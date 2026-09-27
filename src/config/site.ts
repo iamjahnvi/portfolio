@@ -8,7 +8,6 @@ export type Project = {
   featured?: boolean;
   status?: string;
   image?: string;
-  categories?: ("Frontend" | "Backend" | "Fullstack")[];
 };
 
 export type Job = {
@@ -83,12 +82,12 @@ export const site = {
     available: true,
     availableText: "open to opportunities",
     nowLearning: "Backend Engineering • System Design • DSA • DevOps",
-    nowBuilding: "DoodleDash",
+    nowBuilding: "NextStep",
     nowListening: "focus playlists",
   },
   socials: {
-    github: "https://github.com/nodejahnvi",
-    twitter: "https://x.com/jahnvidotdev",
+    github: "https://github.com/iamjahnvi",
+    twitter: "https://x.com/fireflybuilds",
     linkedin: "https://linkedin.com/in/nodejahnvi",
     email: "mailto:conveytojahnvi@gmail.com",
     resume: "",
@@ -174,82 +173,83 @@ export const site = {
   ] as FreelanceProject[],
   projects: [
     {
-      title: "FrameLabs",
+      title: "NextStep",
       blurb:
-        "A creative tool that turns static card generation into a reactive, real-time design experience. Users can switch between retro palettes and layouts on the fly, with zero jank—because every state transition is memoized and component-driven.",
+        "A personalized exam discovery platform that matches students to competitive exams they are actually eligible for — based on age, education level, stream, percentage and subjects — with auth, profiles and exam details.",
       story:
-        "The frontend is built with React's compositional model, styled atomically with Tailwind CSS, and powered by Zustand for predictable, lean state management. Icons from lucide-react keep the UI crisp and accessible. The result: a minimal surface area with a maximal creative ceiling.\n\n*Designed for speed • Engineered for feel.*",
-      stack: ["React.js", "Tailwind CSS", "Zustand", "lucide-react"],
-      year: "2026",
+        "Students create an academic profile and get filtered exam recommendations with eligibility details. Built as a full-stack app: React + Vite frontend talking to an Express.js REST backend (auth, profiles, recommendation logic) backed by MongoDB/Mongoose, wired with Axios.\n\nFlow: profile → eligibility matching → personalized recommendations → exam details. Ongoing work: deadlines, saved exams, notifications.",
+      stack: ["React", "Vite", "JavaScript", "Node.js", "Express.js", "MongoDB", "Mongoose", "Axios"],
+      year: "2025",
       links: {
-        live: "https://framelabs.vercel.app/",
-        source: "https://github.com/nodejahnvi/FrameLabs",
+        source: "https://github.com/iamjahnvi/nextStep",
       },
       featured: true,
-      image: "/project-images/framelabs.png",
-      categories: ["Frontend"],
     },
     {
-      title: "DoodleDash",
+      title: "AI Revenue Recovery Agent",
       blurb:
-        "A real-time multiplayer drawing and guessing game (Skribbl.io clone) built as a TypeScript monorepo with absolute dimension-independent drawing synchronization.",
+        "An AI revenue-recovery agent (Razorpay AI Buildathon, Track 3) that detects at-risk revenue — failed payments, abandoned checkouts, overdue receivables — decides bounded recovery actions and tracks outcomes.",
       story:
-        "Engineered using Socket.IO WebSockets for bidirectional event mapping. Features a zero-trust server validation engine (timers, guessing logic, turn loops managed strictly on the server), spectator rooms, and a custom canvas-to-image engine for client-side PNG sharing. Strikethroughs and drawing vectors are normalized to relative coordinates to ensure cross-device consistency.",
-      stack: ["React.js", "Node.js", "Socket.IO", "TypeScript", "Tailwind CSS v4", "Zustand"],
+        "Pipeline: detection → payment normalizer → risk engine (amount × recovery probability) → policy engine → bounded executor (retry / remind / escalate / stop) → audit + metrics. FastAPI webhook server verifies Razorpay payment.failed events with HMAC-SHA256 and idempotent processing; a batch processor computes revenue-at-risk, recovered revenue and recovery rate; a Streamlit dashboard shows outcomes.\n\nSandbox demo: ₹64,160 at risk across 7 events. Test mode only — no real charges.",
+      stack: ["Python", "FastAPI", "Streamlit", "Razorpay API", "Groq", "Uvicorn"],
       year: "2026",
       links: {
-        live: "https://doodledash.pages.dev/",
-        source: "https://github.com/nodejahnvi/DoodleDash",
+        source: "https://github.com/iamjahnvi/ai-recovery-razorpay",
       },
       featured: true,
-      image: "/project-images/doodledash.png",
-      categories: ["Fullstack", "Backend"],
     },
     {
-      title: "CodeForge",
+      title: "Virtual Carvaan",
       blurb:
-        "A local-first browser-based IDE offering full Monaco editing, in-browser code execution for JS/Python/TS, sandboxed previews, and IndexedDB workspace persistence.",
+        "A nostalgic browser-based Carvaan — a focused, curated music player with play/pause, track navigation and a now-playing display, powered by HTML5 Audio and Supabase Edge Functions.",
       story:
-        "Engineered to run entirely client-side without servers. Integrates Monaco Editor models with dynamic Web Workers and Pyodide runtimes. Features resizable panel split layouts, instant sandboxed iframe live-previews for web files, Dexie-powered IndexedDB database state management, workspace-wide text search, and URL-encoded code snippets sharing.",
-      stack: ["React.js", "Vite", "Zustand", "Monaco Editor", "Pyodide", "Dexie.js"],
+        "Built with React + Vite and styled responsively, it keeps the classic Carvaan listening experience: pick a track, listen, move on. Supabase Edge Functions supply external music data while HTML5 Audio handles playback in the browser.",
+      stack: ["React", "TypeScript", "Vite", "Supabase", "HTML5 Audio", "CSS"],
       year: "2026",
       links: {
-        source: "https://github.com/nodejahnvi/codeforge",
+        live: "https://virtualcarvaan.netlify.app/",
+        source: "https://github.com/iamjahnvi/virtual-carvaan",
       },
       featured: true,
-      status: "In Progress",
-      image: "/project-images/codeforge.png",
-      categories: ["Frontend"],
     },
     {
-      title: "SwiftPoll",
+      title: "Tiny Universe",
       blurb:
-        "A real-time anonymous polling application built for maximum creation and voting speed without user registration friction.",
+        "A whimsical interactive universe in React — explore stars, planets and moon interactions while picking up cosmic facts through a playful creative-coding web experience.",
       story:
-        "Uses Supabase Realtime DB and server actions for lightning-fast voting updates and creator actions. Features browser-stored secret admin tokens for accountless close/delete operations, server-side IP hashing spam de-duplication, full keyboard accessibility, and optimistic client voting counts.",
-      stack: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS v4", "Zod", "Vitest"],
-      year: "2026",
+        "A frontend playground built with React + JavaScript + Vite: interactive cosmic elements, moon interactions and bite-sized space facts, composed as a light, explorable single-page experience.",
+      stack: ["React", "JavaScript", "Vite", "CSS"],
+      year: "2025",
       links: {
-        source: "https://github.com/nodejahnvi/swiftpoll",
+        source: "https://github.com/iamjahnvi/tiny-universe",
       },
       featured: false,
-      image: "/project-images/swiftpoll.png",
-      categories: ["Fullstack"],
     },
     {
-      title: "Nexus",
+      title: "Canva Clone",
       blurb:
-        "A workspace-based project management app featuring kanban boards, real-time activity tracking, nodemailer notifications, and robust team collaboration.",
+        "A multi-section Canva landing-page recreation in pure HTML and CSS — navigation, hero, promo and media sections rebuilt with structured markup and custom styling.",
       story:
-        "Built to mimic enterprise collaboration canvases. Employs Next-Auth for role-based authentication, TanStack Query for caching and server synchronization, Recharts for team productivity insights, and @dnd-kit for seamless drag-and-drop workflow task transitions. Backed by a clean PostgreSQL database schema via Prisma.",
-      stack: ["Next.js", "Prisma", "PostgreSQL", "React Query", "@dnd-kit", "Next-Auth"],
-      year: "2026",
+        "Frontend practice project: recreating Canva's visual structure with semantic HTML and custom CSS — multi-section layout, image/video media handling and responsive design. Educational recreation, not affiliated with Canva.\n\nNext steps: JS interactions, animations and functional navigation.",
+      stack: ["HTML5", "CSS3"],
+      year: "2025",
       links: {
-        source: "https://github.com/nodejahnvi/nexus",
+        source: "https://github.com/iamjahnvi/canva_clone",
       },
       featured: false,
-      image: "/project-images/nexus.png",
-      categories: ["Fullstack", "Backend"],
+    },
+    {
+      title: "Shopify Clone",
+      blurb:
+        "A multi-page Shopify storefront recreation in pure HTML and CSS — homepage, product and collection layouts plus checkout, B2B and enterprise pages with a consistent design system.",
+      story:
+        "Translates a real e-commerce design into structured, maintainable frontend code: semantic HTML, reusable CSS patterns, navigation/product sections and responsive pages. Frontend only — no backend, payments or auth.\n\nNext steps: search/filter, cart, and backend integration.",
+      stack: ["HTML5", "CSS3"],
+      year: "2025",
+      links: {
+        source: "https://github.com/iamjahnvi/shopify_clone",
+      },
+      featured: false,
     },
   ] as Project[],
   skills: [
@@ -373,7 +373,7 @@ export const site = {
     },
   ] as OpenSourceContribution[],
   github: {
-    username: "nodejahnvi",
+    username: "iamjahnvi",
     contributionsLastYear: "500+",
   },
   footerNote: "Built with ❤️ and hardwork"

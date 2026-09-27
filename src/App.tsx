@@ -67,23 +67,6 @@ export function App() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // Dynamically load the cursor-following pixel cat (oneko.js)
-  useEffect(() => {
-    if (document.getElementById("oneko-script")) return;
-
-    const script = document.createElement("script");
-    script.id = "oneko-script";
-    script.src = "/oneko.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-      const neko = document.getElementById("oneko");
-      if (neko) neko.remove();
-    };
-  }, []);
-
   return (
     <ThemeProvider>
       <VisitorProvider>

@@ -10,40 +10,53 @@ const CATEGORY_ICONS: Record<string, string> = {
   Backend: "lucide:server",
   Frontend: "lucide:layout",
   Databases: "lucide:database",
-  "DevOps & Tools": "lucide:terminal",
+  "AI & Tools": "lucide:sparkles",
 };
 
 const SKILL_ICONS: Record<string, string> = {
   TypeScript: "logos:typescript-icon",
   JavaScript: "logos:javascript",
+  Python: "logos:python",
+  Java: "logos:java",
+  HTML5: "logos:html-5",
+  CSS3: "logos:css-3",
   React: "logos:react",
-  "Next.js": "logos:nextjs-icon",
+  Vite: "logos:vitejs",
   "Node.js": "logos:nodejs-icon",
   "Express.js": "logos:express",
-  "Tailwind CSS": "logos:tailwindcss-icon",
-  "Shadcn UI": "simple-icons:shadcnui",
-  PostgreSQL: "logos:postgresql",
+  FastAPI: "logos:fastapi-icon",
+  Uvicorn: "lucide:zap",
   MongoDB: "logos:mongodb-icon",
-  Prisma: "logos:prisma",
+  Mongoose: "simple-icons:mongoose",
   Supabase: "logos:supabase-icon",
-  Firebase: "logos:firebase",
+  Streamlit: "simple-icons:streamlit",
+  "Razorpay API": "simple-icons:razorpay",
+  Axios: "simple-icons:axios",
   "REST APIs": "lucide:cpu",
-  JWT: "logos:jwt-icon",
   Git: "logos:git-icon",
   GitHub: "logos:github-icon",
-  Postman: "logos:postman-icon",
-  Vercel: "logos:vercel-icon",
-  Figma: "logos:figma",
-  "C++": "logos:c-plusplus",
-  Python: "logos:python",
+  Netlify: "logos:netlify-icon",
+};
+
+// Brand colors for icons that would otherwise render monochrome
+// (lucide glyphs + currentColor simple-icons). Colored pills skip the
+// grayscale-until-hover treatment so the color is always visible.
+const SKILL_COLORS: Record<string, string> = {
+  Uvicorn: "#14b8a6",
+  "REST APIs": "#f59e0b",
+  Mongoose: "#c0392b",
+  Streamlit: "#ff4b4b",
+  "Razorpay API": "#3395ff",
+  Axios: "#5a29e4",
+  GitHub: "var(--fg)",
 };
 
 const skillCategories: Record<string, string[]> = {
-  Languages: ["TypeScript", "JavaScript", "Python", "C++"],
-  Frontend: ["React", "Next.js", "Tailwind CSS", "Shadcn UI", "Figma"],
-  Backend: ["Node.js", "Express.js", "REST APIs", "JWT"],
-  Databases: ["PostgreSQL", "MongoDB", "Prisma", "Supabase", "Firebase"],
-  "DevOps & Tools": ["Git", "GitHub", "Postman", "Vercel"],
+  Languages: ["JavaScript", "TypeScript", "Python", "Java", "HTML5", "CSS3"],
+  Frontend: ["React", "Vite", "HTML5", "CSS3"],
+  Backend: ["Node.js", "Express.js", "FastAPI", "REST APIs", "Uvicorn"],
+  Databases: ["MongoDB", "Mongoose", "Supabase"],
+  "AI & Tools": ["Streamlit", "Razorpay API", "Axios", "Git", "GitHub", "Netlify"],
 };
 
 export function TechStack() {
@@ -51,7 +64,7 @@ export function TechStack() {
 
   if (!site.skills.length) return null;
 
-  const categories = ["All", "Languages", "Frontend", "Backend", "Databases", "DevOps & Tools"];
+  const categories = ["All", "Languages", "Frontend", "Backend", "Databases", "AI & Tools"];
 
   const filteredSkills = activeCategory === "All"
     ? site.skills
@@ -95,6 +108,7 @@ export function TechStack() {
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill) => {
               const iconName = SKILL_ICONS[skill] || "lucide:code-2";
+              const color = SKILL_COLORS[skill];
               return (
                 <motion.span
                   key={skill}
@@ -109,7 +123,10 @@ export function TechStack() {
                     icon={iconName}
                     width={16}
                     height={16}
-                    className="size-4 shrink-0 grayscale transition-[filter] duration-200 group-hover:grayscale-0"
+                    style={color ? { color } : undefined}
+                    className={`size-4 shrink-0 transition-[filter] duration-200 ${
+                      color ? "" : "grayscale group-hover:grayscale-0"
+                    }`}
                   />
                   {skill}
                 </motion.span>

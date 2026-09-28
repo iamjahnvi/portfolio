@@ -18,7 +18,7 @@ export function Contact() {
 
   return (
     <div id="contact">
-      <SectionHeader title="Contact" />
+      <SectionHeader title="Contact" anchorId="contact" />
       <Shell>
         <div className="grid grid-cols-2 sm:grid-cols-5 border-b border-[var(--line)] sm:border-b-0">
           {contactLinks.map((l, idx) => {

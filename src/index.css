@@ -257,11 +257,6 @@ html {
 .section-heading-link:hover::after,
 .section-heading-link:focus-visible::after,
 .section-heading-link:active::after,
-.section-heading-link.is-selected::after,
-#about:target .section-heading-link::after,
-#projects:target .section-heading-link::after,
-#skills:target .section-heading-link::after,
-#github:target .section-heading-link::after,
 .nav-link:hover::after,
 .nav-link:focus-visible::after,
 .nav-link[aria-current="page"]::after {

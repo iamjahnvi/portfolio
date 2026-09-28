@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { SideIndex } from "@/components/SideIndex";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Contact } from "@/sections/Contact";
@@ -206,7 +205,6 @@ export function App() {
             </div>
             <Nav onOpenPalette={() => setPaletteOpen(true)} />
             <PullCord />
-            <SideIndex />
 
             <main className="relative z-10">
               <Routes>

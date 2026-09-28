@@ -1,5 +1,5 @@
 import { useState, type CSSProperties } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig, type Variants } from "framer-motion";
 import { Shell, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
 import { Icon } from "@iconify/react";
@@ -59,6 +59,19 @@ const skillCategories: Record<string, string[]> = {
   "AI & Tools": ["Streamlit", "Razorpay API", "Axios", "Git", "GitHub", "Netlify"],
 };
 
+// Keyed-grid stagger: the whole grid remounts per tab so pills fade/slide
+// in together with a soft stagger instead of flying across the layout.
+const gridVariants: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.03, delayChildren: 0.02 } },
+  exit: { opacity: 0, transition: { duration: 0.15, ease: "easeIn" } },
+};
+
+const pillVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: "easeOut" } },
+};
+
 export function TechStack() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
@@ -105,36 +118,41 @@ export function TechStack() {
         </div>
 
         {/* Skill Items Grid */}
-        <motion.div layout className="mt-6 flex flex-wrap gap-2.5">
-          <AnimatePresence mode="popLayout">
-            {filteredSkills.map((skill) => {
-              const iconName = SKILL_ICONS[skill] || "lucide:code-2";
-              const color = SKILL_COLORS[skill];
-              return (
-                <motion.span
-                  key={skill}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 25 }}
-                  className="group flex cursor-default items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--muted)]"
-                >
-                  <Icon
-                    icon={iconName}
-                    width={16}
-                    height={16}
-                    style={color ? ({ "--skill": color } as CSSProperties) : undefined}
-                    className={`size-4 shrink-0 grayscale transition-[filter,color] duration-200 group-hover:grayscale-0 ${
-                      color ? "group-hover:text-[var(--skill)]" : ""
-                    }`}
-                  />
-                  {skill}
-                </motion.span>
-              );
-            })}
+        <MotionConfig reducedMotion="user">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              variants={gridVariants}
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              className="mt-6 flex flex-wrap gap-2.5"
+            >
+              {filteredSkills.map((skill) => {
+                const iconName = SKILL_ICONS[skill] || "lucide:code-2";
+                const color = SKILL_COLORS[skill];
+                return (
+                  <motion.span
+                    key={skill}
+                    variants={pillVariants}
+                    className="group flex cursor-default items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--muted)]"
+                  >
+                    <Icon
+                      icon={iconName}
+                      width={16}
+                      height={16}
+                      style={color ? ({ "--skill": color } as CSSProperties) : undefined}
+                      className={`size-4 shrink-0 grayscale transition-[filter,color] duration-200 group-hover:grayscale-0 ${
+                        color ? "group-hover:text-[var(--skill)]" : ""
+                      }`}
+                    />
+                    {skill}
+                  </motion.span>
+                );
+              })}
+            </motion.div>
           </AnimatePresence>
-        </motion.div>
+        </MotionConfig>
       </Shell>
     </div>
   );

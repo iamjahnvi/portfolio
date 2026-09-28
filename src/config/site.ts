@@ -93,9 +93,11 @@ export const site = {
       title: "ECDAT",
       blurb:
         "An enterprise cryptographic discovery and analysis tool designed to help organizations assess their readiness for the post-quantum era. It scans software ecosystems for cryptographic dependencies and surfaces risks to support structured PQC migration.",
-      stack: [],
+      stack: ["React", "Vite", "TailwindCSS", "Python", "FastAPI", "Uvicorn"],
       year: "",
-      links: {},
+      links: {
+        source: "https://github.com/iamjahnvi/ECDAT_NTRO",
+      },
       featured: true,
     },
     {

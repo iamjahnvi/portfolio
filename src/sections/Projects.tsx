@@ -24,7 +24,7 @@ export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
 
   return (
     <section id="projects">
-      <SectionHeader title="Projects" />
+      <SectionHeader title="Projects" anchorId="projects" />
       <Shell className="px-6 pb-12 pt-5 sm:px-8">
         {isSearchable && <input aria-label="Search projects" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search projects or technologies" className="mb-7 w-full border-b border-[var(--line)] bg-transparent py-3 font-mono text-xs text-[var(--fg)] outline-none placeholder:text-[var(--soft)] sm:max-w-sm" />}
         <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.12em] text-[var(--soft)]">Serious Projects</h3>

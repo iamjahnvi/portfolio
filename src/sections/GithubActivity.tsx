@@ -80,6 +80,7 @@ export function GithubActivity() {
     <div id="github">
       <SectionHeader
         title="GitHub Activity"
+        anchorId="github"
         aside={
           <a
             href={site.socials.github}

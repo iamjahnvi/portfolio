@@ -74,6 +74,7 @@ export function TechStack() {
     <div id="skills">
       <SectionHeader
         title="Tech Stack"
+        anchorId="skills"
         aside={
           <span className="hidden font-mono text-[10px] tracking-wider text-[var(--soft)] sm:inline">
             ( select tab to filter )

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type Project } from "@/config/site";
 import { GitHubIcon } from "@/components/icons";
 import { SKILL_ICONS } from "./TechStack";
@@ -17,33 +17,37 @@ function slugify(title: string) {
 export function ProjectCard({ project: p }: { project: Project; index?: number }) {
   const [imageMissing, setImageMissing] = useState(false);
   const [activeTech, setActiveTech] = useState<string | null>(null);
+  // Retry the image if its URL changes (e.g. file added after a miss).
+  useEffect(() => setImageMissing(false), [p.image]);
   const showImage = !!p.image && !imageMissing;
   const suggestion = `public/project-images/${slugify(p.title)}.png`;
 
   return (
     <article className="py-10 sm:py-14">
       {/* 1. PROJECT IMAGE — full width, consistent aspect ratio */}
-      <div className="group relative aspect-[16/9] w-full overflow-hidden rounded-md border border-[var(--line)] bg-[var(--chip)]">
-        {showImage ? (
-          <img
-            src={p.image}
-            alt={`${p.title} project preview`}
-            loading="lazy"
-            onError={() => setImageMissing(true)}
-            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-          />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
-            <span className="font-serif text-3xl text-[var(--soft)] sm:text-4xl">
-              {p.title.charAt(0)}
-            </span>
-            <p className="font-mono text-[11px] leading-5 text-[var(--soft)]">
-              Preview coming soon
-              <br />
-              <span className="text-[var(--muted)]">Add {suggestion}</span>
-            </p>
-          </div>
-        )}
+      <div className="project-image-frame group relative aspect-[16/9] w-full overflow-hidden rounded-[5px]">
+        <div className="project-image-window relative h-full w-full overflow-hidden rounded-[2px] bg-[var(--bg)]">
+          {showImage ? (
+            <img
+              src={p.image}
+              alt={`${p.title} project preview`}
+              loading="lazy"
+              onError={() => setImageMissing(true)}
+              className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
+              <span className="font-serif text-3xl text-[var(--soft)] sm:text-4xl">
+                {p.title.charAt(0)}
+              </span>
+              <p className="font-mono text-[11px] leading-5 text-[var(--soft)]">
+                Preview coming soon
+                <br />
+                <span className="text-[var(--muted)]">Add {suggestion}</span>
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 2. PROJECT NAME */}
@@ -54,7 +58,7 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
 
       {/* 3. DESCRIPTION */}
       {p.blurb && (
-        <p className="project-blurb mt-3 max-w-2xl whitespace-pre-line text-sm leading-7">
+        <p className="project-blurb mt-3 max-w-2xl whitespace-pre-line text-base leading-7">
           {p.blurb}
         </p>
       )}

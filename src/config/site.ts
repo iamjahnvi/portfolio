@@ -96,6 +96,7 @@ export const site = {
         "An enterprise cryptographic discovery and analysis tool designed to help organizations assess their readiness for the post-quantum era. It scans software ecosystems for cryptographic dependencies and surfaces risks to support structured PQC migration.",
       stack: ["React", "Vite", "TailwindCSS", "Python", "FastAPI", "Uvicorn"],
       year: "",
+      image: "/project-images/ecdat.jpeg",
       links: {
         source: "https://github.com/iamjahnvi/ECDAT_NTRO",
       },
@@ -109,6 +110,7 @@ export const site = {
         "Pipeline: detection → payment normalizer → risk engine (amount × recovery probability) → policy engine → bounded executor (retry / remind / escalate / stop) → audit + metrics. FastAPI webhook server verifies Razorpay payment.failed events with HMAC-SHA256 and idempotent processing; a batch processor computes revenue-at-risk, recovered revenue and recovery rate; a Streamlit dashboard shows outcomes.\n\nSandbox demo: ₹64,160 at risk across 7 events. Test mode only — no real charges.",
       stack: ["Python", "FastAPI", "Streamlit", "Razorpay API", "Groq", "Uvicorn"],
       year: "2026",
+      image: "/project-images/ai-recovery.jpeg",
       links: {
         source: "https://github.com/iamjahnvi/ai-recovery-razorpay",
       },
@@ -137,6 +139,7 @@ export const site = {
         "A frontend playground built with React + JavaScript + Vite: interactive cosmic elements, moon interactions and bite-sized space facts, composed as a light, explorable single-page experience.",
       stack: ["React", "JavaScript", "Vite", "CSS"],
       year: "2025",
+      image: "/project-images/tiny-universe.jpeg",
       links: {
         source: "https://github.com/iamjahnvi/tiny-universe",
       },

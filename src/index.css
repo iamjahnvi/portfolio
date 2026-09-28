@@ -105,6 +105,8 @@
   --hover: rgba(255, 255, 255, 0.045);
   --card: #080808;
   --chip: #111111;
+  --image-matte: #080808;
+  --image-edge: rgba(255, 255, 255, 0.15);
   --blob-a: rgba(255, 255, 255, 0.055);
   --blob-b: rgba(255, 255, 255, 0.032);
   --grain-opacity: 0.05;
@@ -124,6 +126,8 @@
   --hover: rgba(0, 0, 0, 0.035);
   --card: #fafafa;
   --chip: #f3f3f3;
+  --image-matte: #f4f4f4;
+  --image-edge: rgba(0, 0, 0, 0.15);
   --blob-a: rgba(0, 0, 0, 0.05);
   --blob-b: rgba(0, 0, 0, 0.03);
   --grain-opacity: 0.035;
@@ -196,6 +200,28 @@ html {
 
 .contact-dock .dock-link {
   flex: 0 0 auto;
+}
+
+.project-image-frame {
+  padding: 5px;
+  border: 1px solid var(--image-edge);
+  background: var(--image-matte);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.055);
+  transition: border-color 350ms ease, box-shadow 350ms ease;
+}
+
+.light .project-image-frame {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.085), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.project-image-window {
+  border: 1px solid var(--line);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .project-image-frame:hover {
+    border-color: color-mix(in srgb, var(--fg) 32%, transparent);
+  }
 }
 
 .contact-card-link {

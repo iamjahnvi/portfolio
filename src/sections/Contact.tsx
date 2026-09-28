@@ -3,10 +3,6 @@ import { site } from "@/config/site";
 import { GitHubIcon, LinkedInIcon, TwitterIcon, MailIcon, FileIcon } from "@/components/icons";
 import { ArrowUpRight } from "lucide-react";
 
-// Monochrome identity: icons rest in muted gray and lift to
-// foreground white on hover. No brand colors anywhere here.
-const HOVER = "group-hover:border-[var(--fg)] group-active:border-[var(--fg)] group-focus-visible:border-[var(--fg)] group-hover:text-[var(--fg)] group-active:text-[var(--fg)]";
-
 export function Contact() {
   const contactLinks = [
     { label: "GitHub", href: site.socials.github, Icon: GitHubIcon },
@@ -33,19 +29,19 @@ export function Contact() {
                 href={l.href}
                 target={l.href.startsWith("mailto:") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                className={`group flex items-center justify-center gap-2.5 border-[var(--line)] px-4 py-4 text-[13px] font-medium transition-colors duration-200 hover:bg-[var(--hover)] active:bg-[var(--hover)] hover:border-[var(--muted)] active:border-[var(--muted)] focus-visible:outline-none focus-visible:border-[var(--muted)] ${
+                className={`contact-card-link group flex items-center justify-center gap-2.5 border-[var(--line)] px-4 py-4 text-[13px] font-medium ${
                   idx % 2 === 0 && idx !== lastIdx ? "border-r" : "border-r-0"
                 } ${idx < lastRowStart ? "border-b" : "border-b-0"} sm:border-b-0 ${
                   idx === lastIdx ? "sm:border-r-0" : "sm:border-r"
                 }`}
               >
-                <span className={`grid size-8 place-items-center rounded-lg border border-[var(--line)] bg-[var(--chip)] text-[var(--muted)] transition-colors duration-200 ${HOVER}`}>
+                <span className="contact-card-icon grid size-8 place-items-center rounded-lg border border-[var(--line)] bg-[var(--chip)] text-[var(--muted)]">
                   <IconComponent className="size-4" />
                 </span>
-                <span className="text-[var(--muted)] transition-colors duration-200 group-hover:text-[var(--fg)]">
+                <span className="contact-card-label text-[var(--muted)]">
                   {l.label}
                 </span>
-                <ArrowUpRight className={`size-3.5 text-[var(--soft)] transition-all duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${HOVER}`} />
+                <ArrowUpRight className="contact-card-arrow size-3.5 text-[var(--soft)]" />
               </a>
             );
           })}

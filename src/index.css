@@ -184,6 +184,54 @@ html {
   flex: 0 0 auto;
 }
 
+.contact-card-link {
+  color: var(--muted);
+  background-color: transparent;
+  border-color: var(--line);
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+.contact-card-link:hover,
+.contact-card-link:active,
+.contact-card-link:focus-visible {
+  color: var(--fg);
+  background-color: var(--hover);
+  border-color: var(--muted);
+}
+
+.contact-card-link .contact-card-icon {
+  color: var(--muted);
+  border-color: var(--line);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.contact-card-link:hover .contact-card-icon,
+.contact-card-link:active .contact-card-icon,
+.contact-card-link:focus-visible .contact-card-icon {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.contact-card-link .contact-card-label,
+.contact-card-link .contact-card-arrow {
+  color: var(--muted);
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.contact-card-link:hover .contact-card-label,
+.contact-card-link:active .contact-card-label,
+.contact-card-link:focus-visible .contact-card-label,
+.contact-card-link:hover .contact-card-arrow,
+.contact-card-link:active .contact-card-arrow,
+.contact-card-link:focus-visible .contact-card-arrow {
+  color: var(--fg);
+}
+
+.contact-card-link:hover .contact-card-arrow,
+.contact-card-link:focus-visible .contact-card-arrow {
+  transform: translate(2px, -2px);
+}
+
 .section-heading-link {
   position: relative;
   display: inline-flex;

@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { motion, AnimatePresence, MotionConfig, type Variants } from "framer-motion";
 import { Shell, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
@@ -13,19 +13,23 @@ const CATEGORY_ICONS: Record<string, string> = {
   "AI & Tools": "lucide:sparkles",
 };
 
-const SKILL_ICONS: Record<string, string> = {
+export const SKILL_ICONS: Record<string, string> = {
   TypeScript: "logos:typescript-icon",
   JavaScript: "logos:javascript",
   Python: "logos:python",
   Java: "logos:java",
   HTML5: "logos:html-5",
+  "HTML5 Audio": "logos:html-5",
   CSS3: "logos:css-3",
+  CSS: "logos:css-3",
   React: "logos:react",
   Vite: "logos:vitejs",
+  TailwindCSS: "logos:tailwindcss-icon",
   "Node.js": "logos:nodejs-icon",
   "Express.js": "logos:express",
   FastAPI: "logos:fastapi-icon",
   Uvicorn: "lucide:zap",
+  Groq: "simple-icons:groq",
   MongoDB: "logos:mongodb-icon",
   Mongoose: "simple-icons:mongoose",
   Supabase: "logos:supabase-icon",
@@ -72,8 +76,53 @@ const pillVariants: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.28, ease: "easeOut" } },
 };
 
+// Tiny synthesized mechanical click (Web Audio, no assets).
+let clickCtx: AudioContext | null = null;
+function playClickSound() {
+  try {
+    if (!clickCtx) {
+      const AC =
+        window.AudioContext ??
+        (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AC) return;
+      clickCtx = new AC();
+    }
+    if (clickCtx.state === "suspended") void clickCtx.resume();
+    const t = clickCtx.currentTime;
+    const dur = 0.045;
+    const buf = clickCtx.createBuffer(1, Math.max(1, Math.floor(clickCtx.sampleRate * dur)), clickCtx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / data.length);
+    const src = clickCtx.createBufferSource();
+    src.buffer = buf;
+    const filter = clickCtx.createBiquadFilter();
+    filter.type = "highpass";
+    filter.frequency.value = 2400;
+    const gain = clickCtx.createGain();
+    gain.gain.setValueAtTime(0.12, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(clickCtx.destination);
+    src.start(t);
+  } catch {
+    /* audio unavailable — stay silent */
+  }
+}
+
 export function TechStack() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [popped, setPopped] = useState<string | null>(null);
+  const popTimer = useRef(0);
+
+  useEffect(() => () => window.clearTimeout(popTimer.current), []);
+
+  function handlePillClick(skill: string) {
+    playClickSound();
+    setPopped(skill);
+    window.clearTimeout(popTimer.current);
+    popTimer.current = window.setTimeout(() => setPopped(null), 380);
+  }
 
   if (!site.skills.length) return null;
 
@@ -132,22 +181,32 @@ export function TechStack() {
                 const iconName = SKILL_ICONS[skill] || "lucide:code-2";
                 const color = SKILL_COLORS[skill];
                 return (
-                  <motion.span
+                  <motion.button
                     key={skill}
+                    type="button"
+                    onClick={() => handlePillClick(skill)}
                     variants={pillVariants}
-                    className="group flex cursor-default items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--muted)]"
+                    whileTap={{ scale: 0.96 }}
+                    aria-label={skill}
+                    className="group flex cursor-pointer items-center gap-2 rounded-md border border-[var(--line)] bg-[var(--card)] px-3 py-1.5 font-mono text-[12px] text-[var(--muted)] shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--muted)]"
                   >
-                    <Icon
-                      icon={iconName}
-                      width={16}
-                      height={16}
-                      style={color ? ({ "--skill": color } as CSSProperties) : undefined}
-                      className={`size-4 shrink-0 grayscale transition-[filter,color] duration-200 group-hover:grayscale-0 ${
-                        color ? "group-hover:text-[var(--skill)]" : ""
-                      }`}
-                    />
+                    <motion.span
+                      animate={popped === skill ? { scale: [1, 1.45, 1] } : { scale: 1 }}
+                      transition={{ duration: 0.35, ease: "easeOut" }}
+                      className="grid shrink-0 place-items-center"
+                    >
+                      <Icon
+                        icon={iconName}
+                        width={16}
+                        height={16}
+                        style={color ? ({ "--skill": color } as CSSProperties) : undefined}
+                        className={`size-4 shrink-0 grayscale transition-[filter,color] duration-200 group-hover:grayscale-0 ${
+                          color ? "group-hover:text-[var(--skill)]" : ""
+                        }`}
+                      />
+                    </motion.span>
                     {skill}
-                  </motion.span>
+                  </motion.button>
                 );
               })}
             </motion.div>

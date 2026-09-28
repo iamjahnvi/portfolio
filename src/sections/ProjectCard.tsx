@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { type Project } from "@/config/site";
 import { GitHubIcon } from "@/components/icons";
+import { SKILL_ICONS } from "./TechStack";
+import { Icon } from "@iconify/react";
 import { ArrowUpRight } from "lucide-react";
 
 function slugify(title: string) {
@@ -14,6 +16,7 @@ function slugify(title: string) {
  */
 export function ProjectCard({ project: p }: { project: Project; index?: number }) {
   const [imageMissing, setImageMissing] = useState(false);
+  const [activeTech, setActiveTech] = useState<string | null>(null);
   const showImage = !!p.image && !imageMissing;
   const suggestion = `public/project-images/${slugify(p.title)}.png`;
 
@@ -51,16 +54,44 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
 
       {/* 3. DESCRIPTION */}
       {p.blurb && (
-        <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">
+        <p className="project-blurb mt-3 max-w-2xl whitespace-pre-line text-sm leading-7">
           {p.blurb}
         </p>
       )}
 
-      {/* 4. TECHNOLOGIES — compact inline, same spirit as before */}
+      {/* 4. TECHNOLOGIES — hover/click a tech to reveal its logo */}
       {!!p.stack.length && (
-        <p className="mt-4 font-mono text-[11px] leading-6 text-[var(--soft)]">
-          {p.stack.join(" · ")}
-        </p>
+        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 font-mono text-[13px] leading-6">
+          {p.stack.map((t) => {
+            const iconName = SKILL_ICONS[t];
+            const open = activeTech === t;
+            return (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setActiveTech(open ? null : t)}
+                aria-pressed={open}
+                className={`group inline-flex cursor-pointer items-center transition-colors duration-200 ${
+                  open ? "text-[var(--fg)]" : "project-tech group-hover:text-[var(--fg)]"
+                }`}
+              >
+                {iconName && (
+                  <span
+                    aria-hidden="true"
+                    className={`grid shrink-0 place-items-center overflow-hidden transition-all duration-300 ${
+                      open
+                        ? "mr-1.5 w-4 opacity-100"
+                        : "mr-0 w-0 opacity-0 group-hover:mr-1.5 group-hover:w-4 group-hover:opacity-100"
+                    }`}
+                  >
+                    <Icon icon={iconName} className="size-3.5 shrink-0" />
+                  </span>
+                )}
+                {t}
+              </button>
+            );
+          })}
+        </div>
       )}
 
       {/* 5+6. LIVE + GITHUB — hidden individually when the URL doesn't exist */}

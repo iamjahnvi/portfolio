@@ -5,11 +5,10 @@ import { useTheme } from "@/components/theme-provider";
 import { site } from "@/config/site";
 import { ExternalLink } from "lucide-react";
 
-// Monochrome contribution levels (dark + light themes) — intensity
-// reads through lightness so the graph stays inside the portfolio's
-// grayscale identity while remaining fully legible.
-const DARK_LEVELS = ["#171717", "#2b2b2b", "#4a4a4a", "#8a8a8a", "#ededed"];
-const LIGHT_LEVELS = ["#ebedf0", "#d3d7dc", "#a6adb5", "#636c76", "#1f2328"];
+// GitHub's official contribution scale (dark + light themes) —
+// same 5 steps github.com uses, so the graph reads exactly like the profile.
+const DARK_LEVELS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
+const LIGHT_LEVELS = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"];
 
 function formatDayLabel(iso: string): string {
   const d = new Date(`${iso}T00:00:00`);
@@ -33,7 +32,10 @@ export function GithubActivity() {
   const username = site.github.username;
   const heatmap = useGithubHeatmap(username);
   const { theme } = useTheme();
-  const greens = theme === "light" ? LIGHT_LEVELS : DARK_LEVELS;
+  const isLight = theme === "light";
+  const greens = isLight ? LIGHT_LEVELS : DARK_LEVELS;
+  // GitHub's 1px cell border (barely-there, per theme) + hover ring.
+  const cellBorder = isLight ? "rgba(27,31,35,0.06)" : "rgba(255,255,255,0.05)";
   const [hover, setHover] = useState<HoverTip | null>(null);
 
   // Hide the tooltip on scroll so it never floats stale or clipped.
@@ -121,8 +123,11 @@ export function GithubActivity() {
                     key={i}
                     onMouseEnter={handleCellEnter(day)}
                     onMouseLeave={handleCellLeave}
-                    className="size-[10px] cursor-pointer rounded-[2px] transition-transform duration-150 hover:scale-125 hover:outline hover:outline-2 hover:outline-offset-1 hover:outline-white/40"
-                    style={{ backgroundColor: greens[day.level] }}
+                    className={`size-[10px] cursor-pointer rounded-[2px] transition-transform duration-150 hover:scale-125 hover:outline hover:outline-2 hover:outline-offset-1 ${isLight ? "hover:outline-black/30" : "hover:outline-white/40"}`}
+                    style={{
+                      backgroundColor: greens[day.level],
+                      boxShadow: `inset 0 0 0 1px ${cellBorder}`,
+                    }}
                   />
                 ),
               )}
@@ -141,7 +146,10 @@ export function GithubActivity() {
                   <span
                     key={g}
                     className="size-[10px] rounded-[2px]"
-                    style={{ backgroundColor: g }}
+                    style={{
+                      backgroundColor: g,
+                      boxShadow: `inset 0 0 0 1px ${cellBorder}`,
+                    }}
                   />
                 ))}
                 More

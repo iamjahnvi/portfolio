@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Shell, SectionHeader } from "@/components/Layout";
 import { site, type Project } from "@/config/site";
 import { ProjectCard } from "./ProjectCard";
@@ -27,6 +27,35 @@ function matchesQuery(p: Project, query: string) {
   return `${p.title} ${p.blurb} ${p.stack.join(" ")}`.toLowerCase().includes(q);
 }
 
+// Sub-heading that gently zooms while it travels through the middle
+// of the viewport, then settles back to normal once scrolled past.
+function SubHeading({ children, className = "" }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLHeadingElement>(null);
+  const [zoom, setZoom] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setZoom(entry.isIntersecting), {
+      rootMargin: "-35% 0px -55% 0px",
+      threshold: 0,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <h3
+      ref={ref}
+      className={`mb-2 origin-left font-mono text-sm uppercase tracking-[0.12em] text-[var(--soft)] transition-transform duration-500 ease-out will-change-transform ${
+        zoom ? "scale-110" : "scale-100"
+      } ${className}`}
+    >
+      {children}
+    </h3>
+  );
+}
+
 export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
   const [query, setQuery] = useState("");
 
@@ -50,9 +79,7 @@ export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
 
         {serious.length > 0 && (
           <>
-            <h3 className="mb-2 font-mono text-xs uppercase tracking-[0.12em] text-[var(--soft)]">
-              Serious Projects
-            </h3>
+            <SubHeading>Serious Projects</SubHeading>
             <div className="divide-y divide-[var(--line)]">
               {serious.map((project) => (
                 <ProjectCard key={project.title} project={project} />
@@ -63,9 +90,7 @@ export function Projects({ isSearchable = false }: { isSearchable?: boolean }) {
 
         {fun.length > 0 && (
           <>
-            <h3 className="mb-2 mt-12 font-mono text-xs uppercase tracking-[0.12em] text-[var(--soft)]">
-              Fun Projects
-            </h3>
+            <SubHeading className="mt-12">Fun Projects</SubHeading>
             <div className="divide-y divide-[var(--line)]">
               {fun.map((project) => (
                 <ProjectCard key={project.title} project={project} />

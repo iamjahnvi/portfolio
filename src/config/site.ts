@@ -122,6 +122,7 @@ export const site = {
         "Built with React + Vite and styled responsively, it keeps the classic Carvaan listening experience: pick a track, listen, move on. Supabase Edge Functions supply external music data while HTML5 Audio handles playback in the browser.",
       stack: ["React", "TypeScript", "Vite", "Supabase", "HTML5 Audio", "CSS"],
       year: "2026",
+      image: "/project-images/virtual-carvaan.jpeg",
       links: {
         live: "https://virtualcarvaan.netlify.app/",
         source: "https://github.com/iamjahnvi/virtual-carvaan",

@@ -175,6 +175,20 @@ html {
   mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
 }
 
+/* Project writing: brighter grey in dark, darker grey in light. */
+.project-blurb {
+  color: #c7c7c7;
+}
+.light .project-blurb {
+  color: #2e2e2e;
+}
+.project-tech {
+  color: #c7c7c7;
+}
+.light .project-tech {
+  color: #2e2e2e;
+}
+
 .contact-dock {
   width: max-content;
   max-width: calc(100vw - 24px);

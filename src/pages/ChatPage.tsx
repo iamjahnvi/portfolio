@@ -14,10 +14,7 @@ function stamp(): string {
 export function ChatPage() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
-  const [msgs, setMsgs] = useState<Msg[]>(() => [
-    { name: "jahnvi", text: "hey — this goes straight to my inbox, not a bot.", time: stamp(), mine: false },
-    { name: "jahnvi", text: "leave your name and a note below. it will open in your email app, addressed to me.", time: stamp(), mine: false },
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>([]);
   const [status, setStatus] = useState("");
   const [showJump, setShowJump] = useState(false);
   const feedRef = useRef<HTMLDivElement>(null);
@@ -55,7 +52,7 @@ export function ChatPage() {
   return (
     <MotionConfig reducedMotion="user">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35, ease: "easeOut" }}>
-        <Shell className="min-h-[68vh] px-6 pb-20 pt-20 sm:px-8 sm:pt-28">
+        <Shell className="min-h-[68vh] px-6 pb-20 pt-10 sm:px-8 sm:pt-14">
           <div className="mx-auto max-w-xl">
             <h1 className="font-serif text-5xl tracking-tight text-[var(--fg)] sm:text-6xl">Chat</h1>
 

@@ -5,22 +5,32 @@ import { Search } from "lucide-react";
 export function Nav({ onOpenPalette }: { onOpenPalette?: () => void }) {
   const location = useLocation();
   const navLinks = [
-    { label: "projects", path: "/projects" },
+    { label: "home", path: "/" },
     { label: "about", path: "/#about" },
+    { label: "projects", path: "/#projects" },
     { label: "tech stack", path: "/#skills" },
+    { label: "contact", path: "/#contact" },
     { label: "chat", path: "/chat" },
-    { label: "contact", path: "/contact" },
   ];
 
   return (
     <header className="relative z-40 bg-transparent">
-      <Shell className="flex items-center justify-between gap-5 px-6 py-5 sm:px-8">
-        <nav aria-label="Main navigation" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[13px] text-[var(--muted)] sm:gap-x-6">
+      <Shell className="flex items-center justify-end gap-5 px-6 py-5 sm:px-8">
+        <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-[13px] text-[var(--muted)] sm:gap-x-6">
           {navLinks.map(({ label, path }) => {
             const hash = path.includes("#") ? path.slice(path.indexOf("#")) : "";
-            const isActive = hash
-              ? location.pathname === "/" && location.hash === hash
-              : location.pathname === path;
+            let isActive: boolean;
+            if (path === "/") {
+              isActive = location.pathname === "/" && !location.hash;
+            } else if (path === "/#projects") {
+              isActive =
+                (location.pathname === "/" && location.hash === hash) ||
+                location.pathname === "/projects";
+            } else if (hash) {
+              isActive = location.pathname === "/" && location.hash === hash;
+            } else {
+              isActive = location.pathname === path;
+            }
 
             return (
               <Link

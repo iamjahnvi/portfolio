@@ -84,7 +84,7 @@ export const site = {
         "Students create an academic profile and get filtered exam recommendations with eligibility details. Built as a full-stack app: React + Vite frontend talking to an Express.js REST backend (auth, profiles, recommendation logic) backed by MongoDB/Mongoose, wired with Axios.\n\nFlow: profile → eligibility matching → personalized recommendations → exam details. Ongoing work: deadlines, saved exams, notifications.",
       stack: ["React", "Vite", "JavaScript", "Node.js", "Express.js", "MongoDB", "Mongoose", "Axios"],
       year: "2025",
-      image: "/project-images/nextstep.png",
+      image: "/project-images/nextstep.jpeg",
       links: {
         source: "https://github.com/iamjahnvi/nextStep",
       },

@@ -42,4 +42,8 @@ To customize the content of the portfolio (such as titles, biography details, so
 
 ## Visitor count
 
-The footer reads and tracks `/` with the open-source [Page Views API](https://github.com/ratneshchipre/page-views-api). No API key is required. The API uses the deployed hostname by default. If your deployment uses a different canonical domain, set `VITE_PAGE_VIEWS_SITE=your-domain.example` in the deployment environment and rebuild. For local development, set this variable to your public domain if you want to view its counter; localhost is not tracked. The NextStep preview slot is ready for `public/project-images/nextstep.png`.
+The footer reads and tracks `/` with the open-source [Page Views API](https://github.com/ratneshchipre/page-views-api). No API key is required. The API uses the deployed hostname by default. If your deployment uses a different canonical domain, set `VITE_PAGE_VIEWS_SITE=your-domain.example` in the deployment environment and rebuild. For local development, set this variable to your public domain if you want to view its counter; localhost is not tracked.
+
+## Chat
+
+The `/chat` page has no server-side chat service. Sending a note opens the visitor's email app with a message addressed to the portfolio inbox; no message is stored or sent by the site itself.

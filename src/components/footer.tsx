@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Shell, GapBand, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
 import { ArrowRight } from "lucide-react";
@@ -19,7 +19,7 @@ const QUOTES = [
     author: "Steve Jobs",
   },
   {
-    text: "I’ve decided to become the Pirate King. If I die trying, then at least I die fighting for my dream.",
+    text: "Iâ€™ve decided to become the Pirate King. If I die trying, then at least I die fighting for my dream.",
     author: "Monkey D. Luffy",
   },
   {
@@ -59,7 +59,7 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="w-full">
+    <footer className="relative z-10 w-full">
       <GapBand h="h-12" />
       {/* Scrolled Too Far Section */}
       <SectionHeader title="Scrolled Too Far" />
@@ -95,7 +95,7 @@ export function Footer() {
                   {QUOTES[quoteIndex].text}
                 </p>
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--soft)] font-bold">
-                  — {QUOTES[quoteIndex].author}
+                  â€” {QUOTES[quoteIndex].author}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -111,21 +111,23 @@ export function Footer() {
             Designed &amp; Developed by <span className="font-semibold text-[var(--fg)]">{site.name}</span>
           </p>
           <p className="mt-1.5 font-mono text-[12px] text-[var(--soft)]">
-            © {new Date().getFullYear()} All rights reserved.
+            Â© {new Date().getFullYear()} All rights reserved.
           </p>
           <p className="mt-2.5 flex items-center justify-center gap-2 font-mono text-[12px] text-[var(--soft)]">
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
             </span>
-            {site.location} · {localTime || "IST"}
+            {site.location} Â· {localTime || "IST"}
           </p>
         </Shell>
       </div>
       <Shell className="px-6 py-5 text-center sm:px-8">
-        <p className="font-mono text-xs tracking-wide text-[var(--soft)]">
-          You&apos;re the {isLoading ? "…" : count === null ? "—" : count.toLocaleString()} visitor
+        <p className="font-serif text-2xl leading-tight text-[var(--muted)]">You&apos;re the</p>
+        <p aria-live="polite" className="my-1 font-mono text-xl tabular-nums text-[var(--fg)]">
+          {isLoading ? "…" : count === null ? "—" : count.toLocaleString()}
         </p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--soft)]">visitor</p>
       </Shell>
     </footer>
   );

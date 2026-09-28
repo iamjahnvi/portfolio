@@ -12,6 +12,7 @@ import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
 import { TechStack } from "@/sections/TechStack";
 import { GithubActivity } from "@/sections/GithubActivity";
+import { ChatPage } from "@/pages/ChatPage";
 import { CommandPalette } from "@/components/command-palette";
 import { PullCord } from "@/components/PullCord";
 import { Konami } from "@/components/konami";
@@ -70,7 +71,7 @@ export function App() {
           <Analytics />
           <ScrollToTop />
           <Konami />
-          <div className="min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
+          <div className="atmosphere min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
             <Nav onOpenPalette={() => setPaletteOpen(true)} />
             <PullCord />
             <SideIndex />
@@ -88,6 +89,7 @@ export function App() {
                   }
                 />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/chat" element={<ChatPage />} />
               </Routes>
             </main>
 

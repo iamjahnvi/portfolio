@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Shell } from "@/components/Layout";
 
 /**
- * Interactive wave visualizer — ported from the behavior on stanleyp.dev:
- * a full-width strip of vertical bars animated with layered sine waves.
+ * Interactive wave visualizer — a compact strip of vertical bars animated
+ * with layered sine waves inside the portfolio's centered content column.
  * - Bars idle with a gentle drift.
  * - Hovering over the strip swells the amplitude.
  * - Clicking drops a ripple that travels outward.
@@ -201,9 +201,9 @@ export function Footer() {
 
   return (
     <footer className="relative z-10 w-full border-t border-[var(--line)]">
-      <WaveViz />
-      <Shell className="px-6 pb-5 pt-3 sm:px-8">
-        <div className="flex items-center justify-between gap-4">
+      <Shell className="px-6 pb-5 sm:px-8">
+        <WaveViz />
+        <div className="mt-3 flex items-center justify-between gap-4">
           <p className="font-mono text-[11px] text-[var(--muted)]">
             &copy; {new Date().getFullYear()} All rights reserved.
           </p>

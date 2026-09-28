@@ -1,29 +1,99 @@
 import { useState } from "react";
 import { type Project } from "@/config/site";
 import { GitHubIcon } from "@/components/icons";
-import { Globe } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
+function slugify(title: string) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
+
+/**
+ * Editorial project entry: image first (full width, fixed 16/9),
+ * then name, description, compact tech line, Live / GitHub actions.
+ * No side-by-side grid — everything stacks vertically.
+ */
 export function ProjectCard({ project: p }: { project: Project; index?: number }) {
   const [imageMissing, setImageMissing] = useState(false);
+  const showImage = !!p.image && !imageMissing;
+  const suggestion = `public/project-images/${slugify(p.title)}.png`;
+
   return (
-    <article className="grid gap-5 py-7 sm:grid-cols-[minmax(0,1fr)_220px] sm:items-start sm:gap-8">
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h4 className="font-serif text-2xl text-[var(--fg)]">{p.title}</h4>
-          {p.year && <span className="font-mono text-xs text-[var(--soft)]">{p.year}</span>}
-        </div>
-        {p.blurb && <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">{p.blurb}</p>}
-        {p.story && <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">{p.story}</p>}
-        {!!p.stack.length && <p className="mt-4 font-mono text-[11px] leading-6 text-[var(--soft)]">{p.stack.join(" · ")}</p>}
-        <div className="mt-4 flex gap-4 text-[var(--muted)]">
-          {p.links.live && <a href={p.links.live} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} live site`} className="hover:text-[var(--fg)]"><Globe size={16} /></a>}
-          {p.links.source && <a href={p.links.source} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} repository`} className="hover:text-[var(--fg)]"><GitHubIcon className="size-4" /></a>}
-        </div>
+    <article className="py-10 sm:py-14">
+      {/* 1. PROJECT IMAGE — full width, consistent aspect ratio */}
+      <div className="group relative aspect-[16/9] w-full overflow-hidden rounded-md border border-[var(--line)] bg-[var(--chip)]">
+        {showImage ? (
+          <img
+            src={p.image}
+            alt={`${p.title} project preview`}
+            loading="lazy"
+            onError={() => setImageMissing(true)}
+            className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
+            <span className="font-serif text-3xl text-[var(--soft)] sm:text-4xl">
+              {p.title.charAt(0)}
+            </span>
+            <p className="font-mono text-[11px] leading-5 text-[var(--soft)]">
+              Preview coming soon
+              <br />
+              <span className="text-[var(--muted)]">Add {suggestion}</span>
+            </p>
+          </div>
+        )}
       </div>
-      {p.image && <div className="relative aspect-[16/10] overflow-hidden border border-[var(--line)] bg-[var(--chip)]">
-        {!imageMissing && <img src={p.image} alt={`${p.title} project preview`} className="h-full w-full object-cover object-top" onError={() => setImageMissing(true)} />}
-        {imageMissing && <p className="absolute inset-0 flex items-center justify-center px-4 text-center font-mono text-xs leading-5 text-[var(--soft)]">Project preview<br />public/project-images/nextstep.png</p>}
-      </div>}
+
+      {/* 2. PROJECT NAME */}
+      <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3">
+        <h4 className="font-serif text-2xl text-[var(--fg)] sm:text-3xl">{p.title}</h4>
+        {p.year && <span className="font-mono text-xs text-[var(--soft)]">{p.year}</span>}
+      </div>
+
+      {/* 3. DESCRIPTION */}
+      {p.blurb && (
+        <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">
+          {p.blurb}
+        </p>
+      )}
+
+      {/* 4. TECHNOLOGIES — compact inline, same spirit as before */}
+      {!!p.stack.length && (
+        <p className="mt-4 font-mono text-[11px] leading-6 text-[var(--soft)]">
+          {p.stack.join(" · ")}
+        </p>
+      )}
+
+      {/* 5+6. LIVE + GITHUB — hidden individually when the URL doesn't exist */}
+      {(p.links.live || p.links.source) && (
+        <div className="mt-4 flex items-center gap-6">
+          {p.links.live && (
+            <a
+              href={p.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${p.title} live website`}
+              title={`${p.title} live website`}
+              className="inline-flex items-center gap-1.5 font-mono text-xs text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
+            >
+              <ArrowUpRight className="size-4" aria-hidden="true" />
+              Live
+            </a>
+          )}
+          {p.links.source && (
+            <a
+              href={p.links.source}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${p.title} GitHub repository`}
+              title={`${p.title} GitHub repository`}
+              className="inline-flex items-center gap-1.5 font-mono text-xs text-[var(--muted)] transition-colors hover:text-[var(--fg)]"
+            >
+              <GitHubIcon className="size-4" aria-hidden="true" />
+              GitHub
+            </a>
+          )}
+        </div>
+      )}
     </article>
   );
 }

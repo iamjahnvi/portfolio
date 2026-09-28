@@ -79,7 +79,7 @@ export const site = {
     {
       title: "NextStep",
       blurb:
-        "A personalized exam discovery platform that matches students to competitive exams they are actually eligible for — based on age, education level, stream, percentage and subjects — with auth, profiles and exam details.",
+        "A personalized exam discovery platform that helps students find opportunities they’re actually eligible for. It matches academic profiles with eligibility criteria, deadlines, and official exam information in one place.",
       story:
         "Students create an academic profile and get filtered exam recommendations with eligibility details. Built as a full-stack app: React + Vite frontend talking to an Express.js REST backend (auth, profiles, recommendation logic) backed by MongoDB/Mongoose, wired with Axios.\n\nFlow: profile → eligibility matching → personalized recommendations → exam details. Ongoing work: deadlines, saved exams, notifications.",
       stack: ["React", "Vite", "JavaScript", "Node.js", "Express.js", "MongoDB", "Mongoose", "Axios"],
@@ -90,9 +90,18 @@ export const site = {
       featured: true,
     },
     {
+      title: "ECDAT",
+      blurb:
+        "An enterprise cryptographic discovery and analysis tool designed to help organizations assess their readiness for the post-quantum era. It scans software ecosystems for cryptographic dependencies and surfaces risks to support structured PQC migration.",
+      stack: [],
+      year: "",
+      links: {},
+      featured: true,
+    },
+    {
       title: "AI Revenue Recovery Agent",
       blurb:
-        "An AI revenue-recovery agent (Razorpay AI Buildathon, Track 3) that detects at-risk revenue — failed payments, abandoned checkouts, overdue receivables — decides bounded recovery actions and tracks outcomes.",
+        "An AI-assisted payment recovery system that analyzes failed transactions and determines whether to retry, delay, or escalate them. It combines payment failure signals with retry policies to make recovery decisions while avoiding unnecessary repeated attempts.",
       story:
         "Pipeline: detection → payment normalizer → risk engine (amount × recovery probability) → policy engine → bounded executor (retry / remind / escalate / stop) → audit + metrics. FastAPI webhook server verifies Razorpay payment.failed events with HMAC-SHA256 and idempotent processing; a batch processor computes revenue-at-risk, recovered revenue and recovery rate; a Streamlit dashboard shows outcomes.\n\nSandbox demo: ₹64,160 at risk across 7 events. Test mode only — no real charges.",
       stack: ["Python", "FastAPI", "Streamlit", "Razorpay API", "Groq", "Uvicorn"],
@@ -105,7 +114,7 @@ export const site = {
     {
       title: "Virtual Carvaan",
       blurb:
-        "A nostalgic browser-based Carvaan — a focused, curated music player with play/pause, track navigation and a now-playing display, powered by HTML5 Audio and Supabase Edge Functions.",
+        "A digital take on the nostalgic Carvaan experience, bringing a curated collection of music and an old-school listening feel to the web. Built as a playful exploration of interaction, nostalgia, and web experience design.",
       story:
         "Built with React + Vite and styled responsively, it keeps the classic Carvaan listening experience: pick a track, listen, move on. Supabase Edge Functions supply external music data while HTML5 Audio handles playback in the browser.",
       stack: ["React", "TypeScript", "Vite", "Supabase", "HTML5 Audio", "CSS"],
@@ -119,7 +128,7 @@ export const site = {
     {
       title: "Tiny Universe",
       blurb:
-        "A whimsical interactive universe in React — explore stars, planets and moon interactions while picking up cosmic facts through a playful creative-coding web experience.",
+        "An experimental, immersive web experience built around cosmic visuals, motion, and exploration. It turns a simple scroll into a playful journey through an evolving digital universe.",
       story:
         "A frontend playground built with React + JavaScript + Vite: interactive cosmic elements, moon interactions and bite-sized space facts, composed as a light, explorable single-page experience.",
       stack: ["React", "JavaScript", "Vite", "CSS"],

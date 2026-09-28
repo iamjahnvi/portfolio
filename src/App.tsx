@@ -7,7 +7,6 @@ import { SideIndex } from "@/components/SideIndex";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Contact } from "@/sections/Contact";
-import { ContactDock } from "@/components/ContactDock";
 import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
 import { TechStack } from "@/sections/TechStack";
@@ -92,7 +91,6 @@ export function App() {
             </main>
 
             <Footer />
-            <ContactDock />
             <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
           </div>
       </BrowserRouter>

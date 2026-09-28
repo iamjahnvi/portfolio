@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shell, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
@@ -38,9 +38,9 @@ const SKILL_ICONS: Record<string, string> = {
   Netlify: "logos:netlify-icon",
 };
 
-// Brand colors for icons that would otherwise render monochrome
-// (lucide glyphs + currentColor simple-icons). Colored pills skip the
-// grayscale-until-hover treatment so the color is always visible.
+// Accent colors are revealed on hover only — pills rest monochrome.
+// (lucide glyphs + currentColor simple-icons take the hover color;
+// multicolor brand glyphs just lose their grayscale filter on hover.)
 const SKILL_COLORS: Record<string, string> = {
   Uvicorn: "#14b8a6",
   "REST APIs": "#f59e0b",
@@ -124,9 +124,9 @@ export function TechStack() {
                     icon={iconName}
                     width={16}
                     height={16}
-                    style={color ? { color } : undefined}
-                    className={`size-4 shrink-0 transition-[filter] duration-200 ${
-                      color ? "" : "grayscale group-hover:grayscale-0"
+                    style={color ? ({ "--skill": color } as CSSProperties) : undefined}
+                    className={`size-4 shrink-0 grayscale transition-[filter,color] duration-200 group-hover:grayscale-0 ${
+                      color ? "group-hover:text-[var(--skill)]" : ""
                     }`}
                   />
                   {skill}

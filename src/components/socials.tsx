@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { site } from "@/config/site";
 import {
@@ -11,17 +11,8 @@ import {
   MediumIcon
 } from "./icons";
 
-// Brand fill per pill — same idea as TechStack: muted by default,
-// filled with the brand colour on hover + press (click/tap).
-const BRAND_COLORS: Record<string, string> = {
-  github: "#ffffff",
-  twitter: "#ffffff",
-  linkedin: "#0A66C2",
-  medium: "#ffffff",
-  email: "#EA4335",
-  resume: "#34d399",
-  discord: "#5865F2",
-};
+// Monochrome identity: pills rest muted and lift to foreground white
+// on hover. No brand colors — here or in the hover cards below.
 
 const items = [
   { key: "github", href: site.socials.github, label: "GitHub", Icon: GitHubIcon },
@@ -94,7 +85,6 @@ export function Socials({ className = "" }: { className?: string }) {
         .filter((i) => i.href)
         .map(({ key, href, label, Icon }) => {
           const card = hoverCardsData[key];
-          const brand = BRAND_COLORS[key] ?? "#ffffff";
 
           return (
             <div
@@ -107,12 +97,11 @@ export function Socials({ className = "" }: { className?: string }) {
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                style={{ "--brand": brand } as CSSProperties}
-                className="group flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-4 py-2 font-mono text-xs text-neutral-300 hover:border-[var(--brand)] active:border-[var(--brand)] focus-visible:outline-none focus-visible:border-[var(--brand)] hover:text-white active:text-white hover:bg-neutral-800/80 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
+                className="group flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-4 py-2 font-mono text-xs text-neutral-300 hover:border-neutral-500 active:border-neutral-500 focus-visible:outline-none focus-visible:border-neutral-500 hover:text-white active:text-white hover:bg-neutral-800/80 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
               >
-                <Icon className="h-4 w-4 shrink-0 transition-all duration-200 group-hover:scale-110 group-active:scale-110 text-neutral-400 group-hover:text-[var(--brand)] group-active:text-[var(--brand)] group-focus-visible:text-[var(--brand)]" />
+                <Icon className="h-4 w-4 shrink-0 transition-all duration-200 group-hover:scale-110 group-active:scale-110 text-neutral-400 group-hover:text-white group-active:text-white group-focus-visible:text-white" />
                 <span>{label}</span>
-                <span className="text-[10px] text-neutral-500 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--brand)] group-active:text-[var(--brand)]">↗</span>
+                <span className="text-[10px] text-neutral-500 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white group-active:text-white">↗</span>
               </a>
 
               <AnimatePresence>
@@ -152,7 +141,7 @@ export function Socials({ className = "" }: { className?: string }) {
                           <span className="text-xs font-bold text-white">
                             {site.name}
                           </span>
-                          <svg className="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3.5 h-3.5 text-neutral-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                           </svg>
                           {card.pronouns && (
@@ -174,7 +163,7 @@ export function Socials({ className = "" }: { className?: string }) {
                           <div className="mt-3 flex gap-3 border-t border-neutral-800 pt-2 text-[9px] font-mono text-neutral-400">
                             {card.stats.map((s, idx) => (
                               <span key={idx} className="flex items-center gap-1">
-                                <span className="h-1 w-1 rounded-full bg-emerald-400" />
+                                <span className="h-1 w-1 rounded-full bg-neutral-400" />
                                 {s}
                               </span>
                             ))}

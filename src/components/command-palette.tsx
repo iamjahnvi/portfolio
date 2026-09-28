@@ -163,7 +163,7 @@ export function CommandPalette({
       category: "actions",
       title: copied ? "Copied!" : "Copy Email Address",
       subtitle: site.email,
-      icon: copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />,
+      icon: copied ? <Check size={16} className="text-[var(--fg)]" /> : <Copy size={16} />,
       action: handleCopyEmail,
     },
   ];

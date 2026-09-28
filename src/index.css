@@ -105,6 +105,9 @@
   --hover: rgba(255, 255, 255, 0.045);
   --card: #080808;
   --chip: #111111;
+  --blob-a: rgba(255, 255, 255, 0.055);
+  --blob-b: rgba(255, 255, 255, 0.032);
+  --grain-opacity: 0.05;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-sans: 'Amiamie', 'Inter', system-ui, sans-serif;
   --font-amiamie-round: 'Amiamie-Round', sans-serif;
@@ -121,6 +124,9 @@
   --hover: rgba(0, 0, 0, 0.035);
   --card: #fafafa;
   --chip: #f3f3f3;
+  --blob-a: rgba(0, 0, 0, 0.05);
+  --blob-b: rgba(0, 0, 0, 0.03);
+  --grain-opacity: 0.035;
 }
 
 /* Smooth transitions for theme color variables */
@@ -340,5 +346,177 @@ body {
 
 .grid-rows-7 {
   grid-template-rows: repeat(7, minmax(0, 1fr));
+}
+
+/* ------------------------------------------------------------------ */
+/*  Ambient layered background (Kroszborg-inspired, monochrome)        */
+/*  z-0 fixed layer: black base shows through, translucent blobs drift */
+/*  almost imperceptibly, film grain sits on top. Content lives above. */
+/* ------------------------------------------------------------------ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.ambient-blob--a {
+  width: 58vmax;
+  height: 58vmax;
+  left: -16vmax;
+  top: -20vmax;
+  background: radial-gradient(closest-side, var(--blob-a), transparent 70%);
+  animation: ambient-drift-a 110s ease-in-out infinite alternate;
+}
+
+.ambient-blob--b {
+  width: 50vmax;
+  height: 50vmax;
+  right: -15vmax;
+  bottom: -18vmax;
+  background: radial-gradient(closest-side, var(--blob-b), transparent 70%);
+  animation: ambient-drift-b 140s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(6vmax, 4vmax, 0) scale(1.12); }
+}
+
+@keyframes ambient-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to { transform: translate3d(-5vmax, -5vmax, 0) scale(1); }
+}
+
+.ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------------ */
+/*  Custom cursor (Stanley-inspired: dot + trailing ring)              */
+/* ------------------------------------------------------------------ */
+#cursor-dot,
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  pointer-events: none;
+  opacity: 0;
+}
+
+#cursor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--fg);
+}
+
+#cursor-ring {
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  border: 1px solid var(--fg);
+  transition: width 180ms ease, height 180ms ease, opacity 250ms ease;
+}
+
+html.cursor-on,
+html.cursor-on * {
+  cursor: none !important;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Avatar CRT reveal (old-TV turn-on, ~950ms, one-shot)               */
+/* ------------------------------------------------------------------ */
+.avatar-crt {
+  position: relative;
+}
+
+.avatar-crt img {
+  opacity: 0;
+}
+
+.avatar-crt.is-loaded img {
+  animation: crt-reveal 950ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.avatar-crt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+.avatar-crt.is-loaded::after {
+  animation: crt-scan-fade 950ms ease-out forwards;
+}
+
+@keyframes crt-reveal {
+  0% {
+    opacity: 0;
+    filter: brightness(0.1) contrast(1.5) saturate(0);
+    transform: scale(1.03);
+  }
+  25% {
+    opacity: 1;
+    filter: brightness(0.35) contrast(1.35) saturate(0);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(0.88) contrast(1.08) saturate(0.45);
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes crt-scan-fade {
+  0% { opacity: 1; }
+  55% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-blob {
+    animation: none;
+  }
+  #cursor-dot,
+  #cursor-ring {
+    display: none;
+  }
+  .avatar-crt.is-loaded img {
+    animation: avatar-fade 250ms ease-out forwards;
+  }
+  .avatar-crt.is-loaded::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@keyframes avatar-fade {
+  from { opacity: 0; }
+  to { opacity: 1; filter: none; }
 }
 

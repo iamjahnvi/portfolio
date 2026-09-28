@@ -8,6 +8,7 @@ export type Project = {
   featured?: boolean;
   status?: string;
   image?: string;
+  imageFit?: "cover" | "contain";
 };
 
 export type Job = {
@@ -111,6 +112,7 @@ export const site = {
       stack: ["Python", "FastAPI", "Streamlit", "Razorpay API", "Groq", "Uvicorn"],
       year: "2026",
       image: "/project-images/ai-recovery.jpeg",
+      imageFit: "contain",
       links: {
         source: "https://github.com/iamjahnvi/ai-recovery-razorpay",
       },
@@ -125,6 +127,7 @@ export const site = {
       stack: ["React", "TypeScript", "Vite", "Supabase", "HTML5 Audio", "CSS"],
       year: "2026",
       image: "/project-images/virtual-carvaan.jpeg",
+      imageFit: "contain",
       links: {
         live: "https://virtualcarvaan.netlify.app/",
         source: "https://github.com/iamjahnvi/virtual-carvaan",

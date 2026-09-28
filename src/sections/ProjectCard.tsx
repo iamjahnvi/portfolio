@@ -20,6 +20,7 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
   // Retry the image if its URL changes (e.g. file added after a miss).
   useEffect(() => setImageMissing(false), [p.image]);
   const showImage = !!p.image && !imageMissing;
+  const fit = p.imageFit ?? "cover";
   const suggestion = `public/project-images/${slugify(p.title)}.png`;
 
   return (
@@ -33,7 +34,9 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
               alt={`${p.title} project preview`}
               loading="lazy"
               onError={() => setImageMissing(true)}
-              className="h-full w-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+              className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02] ${
+              fit === "contain" ? "bg-[var(--chip)] object-contain" : "object-cover object-top"
+            }`}
             />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">

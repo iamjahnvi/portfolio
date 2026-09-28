@@ -21,13 +21,14 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
   useEffect(() => setImageMissing(false), [p.image]);
   const showImage = !!p.image && !imageMissing;
   const fit = p.imageFit ?? "cover";
+  const frameStyle = fit === "contain" && p.imageBg ? { backgroundColor: p.imageBg } : undefined;
   const suggestion = `public/project-images/${slugify(p.title)}.png`;
 
   return (
     <article className="py-10 sm:py-14">
       {/* 1. PROJECT IMAGE — full width, consistent aspect ratio */}
       <div className="project-image-frame group relative aspect-[16/9] w-full overflow-hidden rounded-[5px]">
-        <div className="project-image-window relative h-full w-full overflow-hidden rounded-[2px] bg-[var(--bg)]">
+        <div className="project-image-window relative h-full w-full overflow-hidden rounded-[2px] bg-[var(--bg)]" style={frameStyle}>
           {showImage ? (
             <img
               src={p.image}
@@ -35,7 +36,7 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
               loading="lazy"
               onError={() => setImageMissing(true)}
               className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02] ${
-              fit === "contain" ? "bg-[var(--chip)] object-contain" : "object-cover object-top"
+              fit === "contain" ? "object-contain" : "object-cover object-top"
             }`}
             />
           ) : (

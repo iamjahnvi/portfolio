@@ -9,6 +9,8 @@ export type Project = {
   status?: string;
   image?: string;
   imageFit?: "cover" | "contain";
+  /** Frame backdrop behind a `contain` image, sampled from the shot itself. */
+  imageBg?: string;
 };
 
 export type Job = {
@@ -113,6 +115,7 @@ export const site = {
       year: "2026",
       image: "/project-images/ai-recovery.jpeg",
       imageFit: "contain",
+      imageBg: "#0E1118",
       links: {
         source: "https://github.com/iamjahnvi/ai-recovery-razorpay",
       },
@@ -128,6 +131,7 @@ export const site = {
       year: "2026",
       image: "/project-images/virtual-carvaan.jpeg",
       imageFit: "contain",
+      imageBg: "#131317",
       links: {
         live: "https://virtualcarvaan.netlify.app/",
         source: "https://github.com/iamjahnvi/virtual-carvaan",

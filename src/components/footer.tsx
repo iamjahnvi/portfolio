@@ -1,7 +1,6 @@
 ﻿import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Shell } from "@/components/Layout";
-import { Eye } from "lucide-react";
 
 /**
  * Interactive wave visualizer — ported from the behavior on stanleyp.dev:
@@ -22,10 +21,10 @@ function WaveViz() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const BAR_GAP = 6;
-    const BAR_W = 2;
-    const MIN_H = 3;
-    const BASE = 40; // reserved bottom area so bars hang from the top like the reference
+    const BAR_GAP = 10;
+    const BAR_W = 4;
+    const MIN_H = 4;
+    const BASE = 52; // reserved bottom area so bars hang from the top like the reference
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     let W = 0;
@@ -173,7 +172,7 @@ function WaveViz() {
   }, []);
 
   return (
-    <div ref={wrapRef} className="relative h-[56px] w-full overflow-hidden" aria-hidden="true">
+    <div ref={wrapRef} className="relative h-[84px] w-full overflow-hidden" aria-hidden="true">
       <canvas ref={canvasRef} className="block h-full w-full" role="presentation" />
       <span className="sr-only">Decorative audio-wave strip</span>
     </div>
@@ -182,7 +181,6 @@ function WaveViz() {
 
 export function Footer() {
   const [localTime, setLocalTime] = useState("");
-  const [visitors, setVisitors] = useState("—");
 
   useEffect(() => {
     const updateTime = () => {
@@ -199,26 +197,6 @@ export function Footer() {
     updateTime();
     const id = window.setInterval(updateTime, 1000);
     return () => window.clearInterval(id);
-  }, []);
-
-  // Eye-counter like the reference (eye icon + number on the right).
-  // Persisted locally; seeded at 1575 to match the reference look.
-  useEffect(() => {
-    try {
-      const KEY = "jahnvi-visitor-count";
-      const SEEN = "jahnvi-visitor-seen";
-      const raw = window.localStorage.getItem(KEY);
-      let n = raw ? parseInt(raw, 10) : 1575;
-      if (!Number.isFinite(n)) n = 1575;
-      if (!window.sessionStorage.getItem(SEEN)) {
-        n += 1;
-        window.sessionStorage.setItem(SEEN, "1");
-        window.localStorage.setItem(KEY, String(n));
-      }
-      setVisitors(n.toLocaleString("en-US"));
-    } catch {
-      setVisitors("1575");
-    }
   }, []);
 
   return (
@@ -246,10 +224,6 @@ export function Footer() {
             <time className="font-mono text-[11px] tabular-nums text-[var(--muted)]">
               {localTime || "IST"}
             </time>
-            <span className="inline-flex items-center gap-1 font-mono text-[11px] tabular-nums text-[var(--muted)]" aria-live="polite">
-              <Eye className="size-3.5" aria-hidden="true" />
-              <span>{visitors}</span>
-            </span>
           </div>
         </div>
       </Shell>

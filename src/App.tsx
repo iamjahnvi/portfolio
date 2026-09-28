@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
-import { VisitorProvider } from "@/context/VisitorContext";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SideIndex } from "@/components/SideIndex";
@@ -65,8 +64,7 @@ export function App() {
 
   return (
     <ThemeProvider>
-      <VisitorProvider>
-        <BrowserRouter>
+      <BrowserRouter>
           <Analytics />
           <ScrollToTop />
           <Konami />
@@ -95,8 +93,7 @@ export function App() {
             <Footer />
             <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
           </div>
-        </BrowserRouter>
-      </VisitorProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

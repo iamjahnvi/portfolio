@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { site } from "@/config/site";
@@ -14,79 +14,14 @@ export function Hero() {
     window.dispatchEvent(new CustomEvent("profileImageChanged", { detail: nextIndex }));
   };
 
-  const roles = [
-    "Full Stack Developer.",
-    "Backend Engineer.",
-    "Problem Solver."
-  ];
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    const fullText = roles[roleIndex];
-    
-    const typingSpeed = isDeleting ? 30 : 60;
-    const delayBeforeDelete = 2000;
-    const delayBeforeType = 400;
-
-    const tick = () => {
-      if (!isDeleting) {
-        const nextText = fullText.slice(0, currentText.length + 1);
-        setCurrentText(nextText);
-        
-        if (nextText === fullText) {
-          timer = setTimeout(() => setIsDeleting(true), delayBeforeDelete);
-          return;
-        }
-      } else {
-        const nextText = fullText.slice(0, currentText.length - 1);
-        setCurrentText(nextText);
-        
-        if (nextText === "") {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-          timer = setTimeout(() => {}, delayBeforeType);
-          return;
-        }
-      }
-      
-      timer = setTimeout(tick, typingSpeed);
-    };
-
-    timer = setTimeout(tick, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [currentText, isDeleting, roleIndex]);
-
   return (
     <section
       id="top"
       className="relative flex min-h-[85vh] flex-col justify-center overflow-hidden px-6 pb-12 pt-28"
     >
-      <div className="bg-grid pointer-events-none absolute inset-0 -z-10" />
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[45rem] w-[45rem] -translate-x-1/2 rounded-full bg-white/5 blur-[160px]" />
 
       <div className="mx-auto w-full max-w-5xl">
-        {/* Cover Banner Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative h-36 w-full overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 sm:h-48"
-        >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover object-center"
-          >
-            <source src={site.bannerVideo} type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent pointer-events-none" />
-        </motion.div>
-
         {/* Profile Avatar & Title Section */}
         <div className="relative -mt-14 sm:-mt-16 flex flex-col sm:flex-row sm:items-end justify-between gap-6 px-4">
           <div className="flex flex-col sm:flex-row sm:items-end gap-5">
@@ -123,14 +58,8 @@ export function Hero() {
               className="pt-2"
             >
               <h1 className="font-serif text-4xl font-normal leading-none tracking-tight sm:text-6xl text-neutral-100">
-                {site.name}
+                Hi, Janhvi Here
               </h1>
-              <div className="mt-2 flex items-center gap-2">
-                <span className="font-mono text-sm font-medium text-neutral-300">
-                  {currentText}
-                  <span className="inline-block w-[2px] h-4 bg-white ml-0.5 animate-pulse">&nbsp;</span>
-                </span>
-              </div>
             </motion.div>
           </div>
         </div>

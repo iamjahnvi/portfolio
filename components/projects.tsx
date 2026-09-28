@@ -61,7 +61,6 @@ export function ProjectCard({ p, i }: { p: Project; i: number }) {
           {/* Creative Banner Canvas Header */}
           <div className={`relative mb-5 h-60 sm:h-64 w-full overflow-hidden rounded-xl border border-dashed border-border/80 bg-gradient-to-br ${getProjectGradient(i)} p-3.5 flex flex-col justify-between`}>
             {/* Background Grid Pattern */}
-            <div className="bg-grid absolute inset-0 opacity-20 pointer-events-none" />
 
             {/* Viewfinder Reticles & Outer Frame */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 font-mono text-[9px] text-white">

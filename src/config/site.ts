@@ -19,8 +19,8 @@ export type Job = {
 };
 
 export const site = {
-  name: "Jahnvi",
-  firstName: "Jahnvi",
+  name: "Janhvi",
+  firstName: "Janhvi",
   url: "https://jahnvidotdev.vercel.app",
   quote: {
     text: "Simplicity is prerequisite for reliability.",
@@ -30,7 +30,6 @@ export const site = {
     "/profile.jpg",
   ],
   bannerImage: "/images/cover.jpg",
-  bannerVideo: "/header-video.mp4",
   socialBannerImage: "/banner.png",
   initials: "AJ",
   role: "Full Stack Developer",

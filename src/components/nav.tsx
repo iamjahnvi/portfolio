@@ -24,7 +24,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette?: () => void }) {
           onClick={() => setMobileMenuOpen(false)}
           className="font-serif text-xl tracking-wide text-[var(--fg)] hover:opacity-80 transition-opacity"
         >
-          {site.firstName}
+          Portfolio
         </Link>
 
         {/* Desktop Navigation */}
@@ -93,7 +93,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette?: () => void }) {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="sm:hidden absolute top-full left-0 w-full bg-[var(--bg)] border-b border-[var(--line)] overflow-hidden shadow-lg z-50 bg-stripes"
+            className="sm:hidden absolute top-full left-0 w-full bg-[var(--bg)] border-b border-[var(--line)] overflow-hidden shadow-lg z-50"
           >
             <div className="px-6 py-6 space-y-4 flex flex-col font-serif text-lg bg-[var(--bg)]">
               {navLinks.map(({ label, path }) => {

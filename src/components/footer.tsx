@@ -3,6 +3,7 @@ import { Shell, GapBand, SectionHeader } from "@/components/Layout";
 import { site } from "@/config/site";
 import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useVisitor } from "@/context/VisitorContext";
 
 const QUOTES = [
   {
@@ -28,6 +29,7 @@ const QUOTES = [
 ];
 
 export function Footer() {
+  const { count, isLoading } = useVisitor();
   const [localTime, setLocalTime] = useState<string>("");
   const [quoteIndex, setQuoteIndex] = useState(0);
 
@@ -120,6 +122,11 @@ export function Footer() {
           </p>
         </Shell>
       </div>
+      <Shell className="px-6 py-5 text-center sm:px-8">
+        <p className="font-mono text-xs tracking-wide text-[var(--soft)]">
+          You&apos;re the {isLoading ? "…" : count === null ? "—" : count.toLocaleString()} visitor
+        </p>
+      </Shell>
     </footer>
   );
 }

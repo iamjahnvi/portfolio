@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { site } from "@/config/site";
 import { Socials } from "./socials";
@@ -15,58 +15,12 @@ export function Hero() {
     window.dispatchEvent(new CustomEvent("profileImageChanged", { detail: nextIndex }));
   };
 
-  const roles = [
-    "Full Stack Developer.",
-    "Backend Engineer.",
-    "Problem Solver."
-  ];
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    const fullText = roles[roleIndex];
-    
-    const typingSpeed = isDeleting ? 30 : 60;
-    const delayBeforeDelete = 2000;
-    const delayBeforeType = 400;
-
-    const tick = () => {
-      if (!isDeleting) {
-        const nextText = fullText.slice(0, currentText.length + 1);
-        setCurrentText(nextText);
-        
-        if (nextText === fullText) {
-          timer = setTimeout(() => setIsDeleting(true), delayBeforeDelete);
-          return;
-        }
-      } else {
-        const nextText = fullText.slice(0, currentText.length - 1);
-        setCurrentText(nextText);
-        
-        if (nextText === "") {
-          setIsDeleting(false);
-          setRoleIndex((prev) => (prev + 1) % roles.length);
-          timer = setTimeout(() => {}, delayBeforeType);
-          return;
-        }
-      }
-      
-      timer = setTimeout(tick, typingSpeed);
-    };
-
-    timer = setTimeout(tick, typingSpeed);
-    return () => clearTimeout(timer);
-  }, [currentText, isDeleting, roleIndex]);
-
   return (
     <section
       id="top"
       className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden px-6 pb-12 pt-20"
     >
       {/* backdrop */}
-      <div className="bg-grid pointer-events-none absolute inset-0 -z-10" />
       <div className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[50rem] w-[50rem] -translate-x-1/2 rounded-full bg-accent/5 blur-[160px]" />
 
       <div className="mx-auto w-full max-w-content">
@@ -141,14 +95,8 @@ export function Hero() {
               className="pt-2"
             >
               <h1 className="font-serif text-4xl font-normal leading-none tracking-tight sm:text-6xl text-fg">
-                {site.name}
+                Hi, Janhvi Here
               </h1>
-              <div className="mt-1.5 flex items-center gap-2">
-                <span className="font-mono text-sm font-medium text-accent">
-                  {currentText}
-                  <span className="inline-block w-[2px] animate-blink bg-accent ml-0.5">&nbsp;</span>
-                </span>
-              </div>
             </motion.div>
           </div>
         </div>

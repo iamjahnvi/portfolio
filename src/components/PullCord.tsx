@@ -2,20 +2,22 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "./theme-provider";
 
-// Verlet-rope lamp cord: a 17-point rope simulated per-frame with gravity + damping,
-// so it bends, stretches with resistance, clicks mid-pull, and keeps momentum for pendulum sway.
-const SEGMENTS = 16;
-const REST_LEN = 11;
+// Verlet-rope lamp cord: an 18-point rope simulated per-frame with gravity +
+// light damping, so it bends, stretches with rubber-band resistance, clicks
+// mid-pull, then springs back with overshoot and keeps momentum for a long
+// pendulum sway. The grab area follows the knob so you can catch it mid-swing.
+const SEGMENTS = 18;
+const REST_LEN = 10;
 const ANCHOR_X = 32;
-const REST_TOTAL = SEGMENTS * REST_LEN; // 176
-const GRAVITY = 1250;
-const DAMPING = 0.94;
-const ITERATIONS = 20;
-const STRETCH_MAX = 26;
-const STRETCH_TOGGLE = 20;
-const MAX_VELOCITY = 22;
-const SLEEP_EPS = 0.15;
-const HIT = 46;
+const REST_TOTAL = SEGMENTS * REST_LEN; // 180
+const GRAVITY = 2100;
+const DAMPING = 0.982;
+const ITERATIONS = 24;
+const STRETCH_MAX = 110;
+const STRETCH_TOGGLE = 42;
+const MAX_VELOCITY = 48;
+const SLEEP_EPS = 0.08;
+const HIT_RADIUS = 38;
 
 interface Pt {
   x: number;
@@ -45,6 +47,10 @@ function smoothPath(pts: Pt[]): string {
   return d;
 }
 
+function clamp(v: number, min: number, max: number): number {
+  return v < min ? min : v > max ? max : v;
+}
+
 export function PullCord() {
   const { theme, toggleTheme } = useTheme();
   const dark = theme === "dark";
@@ -54,6 +60,8 @@ export function PullCord() {
   const ptsRef = useRef<Pt[]>(freshRope());
   const pathRef = useRef<SVGPathElement>(null);
   const knobRef = useRef<SVGGElement>(null);
+  const knobScaleRef = useRef<SVGGElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const simRef = useRef({
     dragging: false,
     dragX: ANCHOR_X,
@@ -72,9 +80,17 @@ export function PullCord() {
     const pts = ptsRef.current;
     pathRef.current?.setAttribute("d", smoothPath(pts));
     const last = pts[pts.length - 1];
-    knobRef.current?.setAttribute(
+    const dx = last.x - ANCHOR_X;
+    const dy = last.y - REST_TOTAL;
+    knobRef.current?.setAttribute("transform", `translate(${dx.toFixed(2)} ${dy.toFixed(2)})`);
+
+    // Tension visuals: cord thickens and the knob swells slightly while stretched.
+    const ext = clamp(Math.hypot(dx, dy) / STRETCH_MAX, 0, 1);
+    pathRef.current?.setAttribute("stroke-width", (1.5 + ext * 1.4).toFixed(2));
+    const s = simRef.current.dragging ? 1 + ext * 0.18 : 1;
+    knobScaleRef.current?.setAttribute(
       "transform",
-      `translate(${(last.x - ANCHOR_X).toFixed(2)} ${(last.y - REST_TOTAL).toFixed(2)})`
+      `translate(${ANCHOR_X} ${REST_TOTAL}) scale(${s.toFixed(3)}) translate(${-ANCHOR_X} ${-REST_TOTAL})`
     );
   };
 
@@ -159,10 +175,7 @@ export function PullCord() {
     s.raf = requestAnimationFrame(step);
   };
 
-  const endDrag = () => {
-    const s = simRef.current;
-    if (!s.dragging) return;
-    const last = ptsRef.current[ptsRef.current.length - 1];
+  const clampVelocity = (last: Pt) => {
     const vx = last.x - last.ox;
     const vy = last.y - last.oy;
     const sp = Math.hypot(vx, vy);
@@ -171,13 +184,33 @@ export function PullCord() {
       last.ox = last.x - vx * k;
       last.oy = last.y - vy * k;
     }
+  };
+
+  const endDrag = () => {
+    const s = simRef.current;
+    if (!s.dragging) return;
+    const last = ptsRef.current[ptsRef.current.length - 1];
+    const stretch = last.y - REST_TOTAL;
+    // Spring snap-back: fling upward proportional to how far it was pulled
+    // so the cord overshoots, bounces, and settles with a pendulum sway.
+    last.oy += stretch * 0.55;
+    // Keep (and slightly boost) horizontal momentum for a longer swing,
+    // with a whisper of randomness so it never looks robotic.
+    const vx = last.x - last.ox;
+    last.ox -= vx * 0.15;
+    if (Math.abs(vx) < 4) last.ox += (Math.random() - 0.5) * 5;
+    clampVelocity(last);
     s.dragging = false;
     wake();
   };
 
   const flick = () => {
     const last = ptsRef.current[ptsRef.current.length - 1];
-    last.oy -= MAX_VELOCITY;
+    // Sharp downward yank + sideways kick: the cord stretches, snaps back,
+    // overshoots past rest, then sways like a real lamp pull.
+    last.oy -= 26;
+    last.ox -= 9 + Math.random() * 4;
+    clampVelocity(last);
     wake();
   };
 
@@ -185,11 +218,12 @@ export function PullCord() {
     reducedRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     render();
     if (!reducedRef.current) {
-      // Gentle 1.7s delayed entrance tug
+      // Gentle delayed entrance tug with a sideways nudge so visitors see
+      // the spring + sway the moment it settles.
       const timer = window.setTimeout(() => {
         const last = ptsRef.current[ptsRef.current.length - 1];
-        last.oy -= 13;
-        last.ox -= 6;
+        last.oy -= 18;
+        last.ox -= 11;
         wake();
       }, 1700);
       return () => {
@@ -201,10 +235,24 @@ export function PullCord() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const knobScreenPos = () => {
+    const last = ptsRef.current[ptsRef.current.length - 1];
+    return { x: last.x, y: last.y };
+  };
+
   const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
     if (reducedRef.current) {
       toggleRef.current();
       return;
+    }
+    // The grab zone covers the whole cord box but only starts a drag when
+    // pressing near the knob — so you can catch it mid-swing.
+    const box = boxRef.current?.getBoundingClientRect();
+    if (box) {
+      const lx = e.clientX - box.left;
+      const ly = e.clientY - box.top;
+      const k = knobScreenPos();
+      if (Math.hypot(lx - k.x, ly - k.y) > HIT_RADIUS) return;
     }
     e.currentTarget.setPointerCapture(e.pointerId);
     const s = simRef.current;
@@ -213,8 +261,9 @@ export function PullCord() {
     s.moved = false;
     s.startX = e.clientX;
     s.startY = e.clientY;
-    s.dragX = ANCHOR_X;
-    s.dragY = REST_TOTAL;
+    const k = knobScreenPos();
+    s.dragX = k.x;
+    s.dragY = k.y;
     wake();
   };
 
@@ -223,13 +272,20 @@ export function PullCord() {
     if (!s.dragging || reducedRef.current) return;
     const dx = e.clientX - s.startX;
     const dy = e.clientY - s.startY;
-    const ext = Math.hypot(dx, dy);
-    if (ext > 6) s.moved = true;
-    const max = REST_TOTAL + STRETCH_MAX;
-    const k = ext > max ? max / ext : 1;
-    s.dragX = ANCHOR_X + dx * k;
-    s.dragY = REST_TOTAL + dy * k;
-    if (!s.pulled && ext >= STRETCH_TOGGLE) {
+    const raw = Math.hypot(dx, dy);
+    if (raw > 6) s.moved = true;
+    // Rubber-band resistance: the further you pull, the harder it fights back.
+    let tdx = dx;
+    let tdy = dy;
+    if (raw > 0.001) {
+      const rubber = STRETCH_MAX * (1 - Math.exp(-raw / STRETCH_MAX));
+      const k = rubber / raw;
+      tdx = dx * k;
+      tdy = dy * k;
+    }
+    s.dragX = clamp(ANCHOR_X + tdx, ANCHOR_X - 90, ANCHOR_X + 90);
+    s.dragY = clamp(REST_TOTAL + tdy, REST_TOTAL - 24, REST_TOTAL + STRETCH_MAX);
+    if (!s.pulled && s.dragY - REST_TOTAL >= STRETCH_TOGGLE) {
       s.pulled = true;
       toggleRef.current();
     }
@@ -253,7 +309,10 @@ export function PullCord() {
   };
 
   return (
-    <div className="pointer-events-none fixed top-0 right-3 sm:right-6 md:right-8 lg:right-10 z-50 h-[340px] w-16">
+    <div
+      ref={boxRef}
+      className="pointer-events-none fixed top-0 right-3 sm:right-6 md:right-8 lg:right-10 z-50 h-[340px] w-16"
+    >
       <svg
         viewBox="0 0 64 340"
         width={64}
@@ -282,20 +341,22 @@ export function PullCord() {
           vectorEffect="non-scaling-stroke"
         />
         <g ref={knobRef}>
-          <g filter="url(#pc-knob-sh)">
-            <circle
-              cx={ANCHOR_X}
-              cy={REST_TOTAL}
-              r={6.5}
-              fill="url(#pc-knob)"
-              stroke="rgba(0,0,0,0.10)"
-              strokeWidth={0.5}
-            />
+          <g ref={knobScaleRef}>
+            <g filter="url(#pc-knob-sh)">
+              <circle
+                cx={ANCHOR_X}
+                cy={REST_TOTAL}
+                r={6.5}
+                fill="url(#pc-knob)"
+                stroke="rgba(0,0,0,0.10)"
+                strokeWidth={0.5}
+              />
+            </g>
           </g>
         </g>
       </svg>
 
-      {/* Interactive grab area over the resting knob */}
+      {/* Full-box grab area: press near the knob (even mid-swing) to pull */}
       <button
         type="button"
         onPointerDown={handlePointerDown}
@@ -307,13 +368,10 @@ export function PullCord() {
         aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
         aria-pressed={!dark}
         title={dark ? "Switch to light mode" : "Switch to dark mode"}
-        className="cursor-grab touch-none border-0 bg-transparent p-0 active:cursor-grabbing focus:outline-none"
+        className="cursor-grab touch-none border-0 bg-transparent p-0 active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--soft)] focus-visible:rounded-full"
         style={{
           position: "absolute",
-          left: ANCHOR_X - HIT / 2,
-          top: REST_TOTAL - HIT / 2,
-          width: HIT,
-          height: HIT,
+          inset: 0,
           pointerEvents: "auto",
         }}
       />
@@ -323,12 +381,13 @@ export function PullCord() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 0.7 }}
-        className="absolute top-[80px] right-[48px] hidden sm:block text-right select-none pointer-events-none whitespace-nowrap font-serif italic"
+        className="absolute top-[80px] right-[48px] hidden sm:block text-right select-none pointer-events-none whitespace-nowrap font-mono"
         style={{
-          fontSize: "1.15rem",
-          lineHeight: 1.05,
+          fontSize: "0.75rem",
+          lineHeight: "1rem",
           color: dark ? "var(--muted)" : "var(--muted)",
-          letterSpacing: "0.01em",
+          fontWeight: 400,
+          letterSpacing: "0.02em",
         }}
       >
         pull the

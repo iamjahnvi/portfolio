@@ -18,7 +18,7 @@ export function About() {
       <Reveal delay={0.1}>
         <div className="mt-8 rounded-2xl border bg-surface/30 p-5">
           <p className="font-mono text-xs uppercase tracking-widest text-accent">
-            Developer Snapshot
+            About
           </p>
           <ul className="mt-3 space-y-2">
             {site.tldr.map((item) => (

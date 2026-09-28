@@ -1,145 +1,29 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { type Project } from "@/config/site";
-import { Globe, ChevronDown, ChevronUp } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
+import { Globe } from "lucide-react";
 
-const getProjectGradient = (index: number) => {
-  return "from-[var(--chip)] via-[var(--card)] to-[var(--bg)]/40";
-};
-
-export function ProjectCard({ project: p, index = 0 }: { project: Project; index?: number }) {
-  const [showDetails, setShowDetails] = useState(false);
-  const [imgError, setImgError] = useState(false);
-
+export function ProjectCard({ project: p }: { project: Project; index?: number }) {
+  const [imageMissing, setImageMissing] = useState(false);
   return (
-    <div className="group flex flex-col justify-between rounded-xl border border-[var(--line)] bg-[var(--card)] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--soft)] hover:shadow-md h-full">
-      <div>
-        {/* Angled Screenshot Preview Canvas Box */}
-        <div className={`relative mb-4 h-48 w-full overflow-hidden rounded-lg border border-[var(--line)] bg-gradient-to-br ${getProjectGradient(index)} p-3 flex flex-col justify-between`}>
-          <div className="bg-stripes absolute inset-0 opacity-20 pointer-events-none" />
-
-          {/* Top Badges Row */}
-          <div className="relative z-20 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              {p.status ? (
-                <span className="rounded bg-amber-500/20 border border-amber-500/40 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-amber-300 backdrop-blur-md">
-                  • {p.status}
-                </span>
-              ) : (
-                <span className="rounded bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-emerald-300 backdrop-blur-md flex items-center gap-1">
-                  <span className="relative flex size-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                    <span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" />
-                  </span>
-                  Live
-                </span>
-              )}
-            </div>
-
-            {p.featured && (
-              <span className="rounded bg-amber-400/10 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-amber-500 border border-amber-500/30">
-                Featured
-              </span>
-            )}
-          </div>
-
-          {/* Angled Screenshot Image */}
-          {p.image && !imgError ? (
-            <div className="absolute -right-6 -bottom-3 w-56 h-32 sm:-right-12 sm:-bottom-5 sm:w-72 sm:h-40 rounded-lg border-4 border-[var(--bg)]/40 shadow-xl overflow-hidden group-hover:-right-4 group-hover:-bottom-1 sm:group-hover:-right-9 sm:group-hover:-bottom-2 transition-all duration-300 pointer-events-none">
-              <img
-                src={p.image}
-                alt={`${p.title} preview`}
-                className="w-full h-full object-cover object-top"
-                onError={() => setImgError(true)}
-              />
-            </div>
-          ) : (
-            <div className="font-serif text-2xl text-[var(--fg)] self-end opacity-90">{p.title}</div>
-          )}
+    <article className="grid gap-5 py-7 sm:grid-cols-[minmax(0,1fr)_220px] sm:items-start sm:gap-8">
+      <div className="min-w-0">
+        <div className="flex flex-wrap items-baseline justify-between gap-3">
+          <h4 className="font-serif text-2xl text-[var(--fg)]">{p.title}</h4>
+          {p.year && <span className="font-mono text-xs text-[var(--soft)]">{p.year}</span>}
         </div>
-
-        {/* Project Header Info */}
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-[16px] font-semibold tracking-wide text-[var(--fg)] group-hover:text-[var(--fg)]">
-            {p.title}
-          </h3>
-          <span className="font-mono text-xs text-[var(--soft)]">{p.year}</span>
-        </div>
-
-        <p className="mt-2 text-[13px] leading-relaxed text-[var(--muted)] line-clamp-4">
-          {p.blurb}
-        </p>
-
-        {/* Collapsible Details Drawer */}
-        {p.story && (
-          <div className="mt-3">
-            <button
-              type="button"
-              onClick={() => setShowDetails(!showDetails)}
-              className="flex items-center gap-1 font-mono text-[10px] text-[var(--soft)] hover:text-[var(--fg)] cursor-pointer outline-none"
-            >
-              {showDetails ? "Hide engineering details" : "Show engineering details"}
-              {showDetails ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
-            </button>
-            <AnimatePresence initial={false}>
-              {showDetails && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: "easeInOut" }}
-                  className="overflow-hidden"
-                >
-                  <div className="mt-2.5 rounded-lg border border-[var(--line)]/50 bg-[var(--chip)]/60 p-3 font-sans text-[12px] leading-relaxed text-[var(--muted)] border-l-2 border-l-[var(--soft)] space-y-1.5">
-                    {p.story.split("\n\n").map((para, idx) => (
-                      <p key={idx}>{para}</p>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        )}
-      </div>
-
-      {/* Tech Pills & Direct Links */}
-      <div className="mt-4 flex items-center justify-between gap-3 pt-3 border-t border-[var(--line)]/50">
-        <div className="flex flex-wrap gap-1.5">
-          {p.stack.map((t) => (
-            <span
-              key={t}
-              className="rounded bg-[var(--chip)] px-2 py-0.5 font-mono text-[10.5px] text-[var(--muted)] border border-[var(--line)]/30"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-        <div className="flex shrink-0 items-center gap-2.5 text-[var(--soft)]">
-          {p.links.live && (
-            <a
-              href={p.links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${p.title} live site`}
-              className="transition-all duration-200 hover:-translate-y-0.5 hover:text-[var(--fg)]"
-            >
-              <Globe className="size-4" />
-            </a>
-          )}
-          {p.links.source && (
-            <a
-              href={p.links.source}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${p.title} repository`}
-              className="transition-all duration-200 hover:-translate-y-0.5 hover:text-[var(--fg)]"
-            >
-              <GitHubIcon className="size-4" />
-            </a>
-          )}
+        {p.blurb && <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">{p.blurb}</p>}
+        {p.story && <p className="mt-3 max-w-2xl whitespace-pre-line text-sm leading-7 text-[var(--muted)]">{p.story}</p>}
+        {!!p.stack.length && <p className="mt-4 font-mono text-[11px] leading-6 text-[var(--soft)]">{p.stack.join(" · ")}</p>}
+        <div className="mt-4 flex gap-4 text-[var(--muted)]">
+          {p.links.live && <a href={p.links.live} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} live site`} className="hover:text-[var(--fg)]"><Globe size={16} /></a>}
+          {p.links.source && <a href={p.links.source} target="_blank" rel="noopener noreferrer" aria-label={`${p.title} repository`} className="hover:text-[var(--fg)]"><GitHubIcon className="size-4" /></a>}
         </div>
       </div>
-    </div>
+      {p.image && <div className="relative aspect-[16/10] overflow-hidden border border-[var(--line)] bg-[var(--chip)]">
+        {!imageMissing && <img src={p.image} alt={`${p.title} project preview`} className="h-full w-full object-cover object-top" onError={() => setImageMissing(true)} />}
+        {imageMissing && <p className="absolute inset-0 flex items-center justify-center px-4 text-center font-mono text-xs leading-5 text-[var(--soft)]">Project preview<br />public/project-images/nextstep.png</p>}
+      </div>}
+    </article>
   );
 }

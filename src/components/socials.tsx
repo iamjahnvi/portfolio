@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { site } from "@/config/site";
 import {
@@ -10,6 +10,18 @@ import {
   DiscordIcon,
   MediumIcon
 } from "./icons";
+
+// Brand fill per pill — same idea as TechStack: muted by default,
+// filled with the brand colour on hover + press (click/tap).
+const BRAND_COLORS: Record<string, string> = {
+  github: "#ffffff",
+  twitter: "#ffffff",
+  linkedin: "#0A66C2",
+  medium: "#ffffff",
+  email: "#EA4335",
+  resume: "#34d399",
+  discord: "#5865F2",
+};
 
 const items = [
   { key: "github", href: site.socials.github, label: "GitHub", Icon: GitHubIcon },
@@ -82,6 +94,7 @@ export function Socials({ className = "" }: { className?: string }) {
         .filter((i) => i.href)
         .map(({ key, href, label, Icon }) => {
           const card = hoverCardsData[key];
+          const brand = BRAND_COLORS[key] ?? "#ffffff";
 
           return (
             <div
@@ -94,11 +107,12 @@ export function Socials({ className = "" }: { className?: string }) {
                 href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-4 py-2 font-mono text-xs text-neutral-300 hover:border-neutral-600 hover:text-white hover:bg-neutral-800/80 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
+                style={{ "--brand": brand } as CSSProperties}
+                className="group flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-4 py-2 font-mono text-xs text-neutral-300 hover:border-[var(--brand)] active:border-[var(--brand)] focus-visible:outline-none focus-visible:border-[var(--brand)] hover:text-white active:text-white hover:bg-neutral-800/80 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
               >
-                <Icon className="h-4 w-4 shrink-0 transition-transform group-hover:scale-110 text-neutral-400 group-hover:text-white" />
+                <Icon className="h-4 w-4 shrink-0 transition-all duration-200 group-hover:scale-110 group-active:scale-110 text-neutral-400 group-hover:text-[var(--brand)] group-active:text-[var(--brand)] group-focus-visible:text-[var(--brand)]" />
                 <span>{label}</span>
-                <span className="text-[10px] text-neutral-500 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white">↗</span>
+                <span className="text-[10px] text-neutral-500 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--brand)] group-active:text-[var(--brand)]">↗</span>
               </a>
 
               <AnimatePresence>

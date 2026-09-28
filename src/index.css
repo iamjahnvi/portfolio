@@ -102,7 +102,6 @@
   --muted: #a1a1aa;
   --soft: #63636b;
   --line: rgba(255, 255, 255, 0.10);
-  --stripe: rgba(255, 255, 255, 0.055);
   --hover: rgba(255, 255, 255, 0.05);
   --card: #101010;
   --chip: #161616;
@@ -119,7 +118,6 @@
   --muted: #52525b;
   --soft: #a1a1aa;
   --line: rgba(0, 0, 0, 0.10);
-  --stripe: rgba(0, 0, 0, 0.055);
   --hover: rgba(0, 0, 0, 0.04);
   --card: #ffffff;
   --chip: #f4f4f5;
@@ -181,11 +179,6 @@ body {
 /* RGB Chromatic Aberration Text Shadow */
 .text-glitch {
   text-shadow: -1.5px 0 0 rgba(0, 200, 255, 0.6), 1.5px 0 0 rgba(255, 80, 0, 0.6);
-}
-
-/* Repeating Linear Gradient Stripes */
-.bg-stripes {
-  background-image: repeating-linear-gradient(315deg, var(--stripe) 0, var(--stripe) 1px, transparent 1px, transparent 7px);
 }
 
 /* Custom Scrollbar */

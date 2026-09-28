@@ -18,7 +18,6 @@ export function HomePage() {
       <section className="mx-auto w-full max-w-5xl px-6 py-12">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900/40 p-8 sm:p-12 text-center backdrop-blur-xl">
-            <div className="bg-grid absolute inset-0 opacity-15 pointer-events-none" />
             <div className="relative z-10 flex flex-col items-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-950 px-3.5 py-1 text-xs font-mono text-emerald-400 mb-4">
                 <Sparkles size={14} /> Open to Collaborations & Roles

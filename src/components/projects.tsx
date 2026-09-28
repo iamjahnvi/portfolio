@@ -58,8 +58,6 @@ export function ProjectCard({ p, i }: { p: Project; i: number }) {
         <div>
           {/* Creative Banner Canvas Header */}
           <div className={`relative mb-5 h-60 sm:h-64 w-full overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br ${getProjectGradient(i)} p-4 flex flex-col justify-between`}>
-            {/* Background Grid Pattern */}
-            <div className="bg-grid absolute inset-0 opacity-20 pointer-events-none" />
 
             {/* Top Badges Row */}
             <div className="relative z-20 flex items-center justify-between gap-2">

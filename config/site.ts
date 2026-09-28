@@ -27,13 +27,12 @@ export type Post = {
 };
 
 export const site = {
-  name: "Jahnvi",
+  name: "Janhvi",
   url: "https://jahnvidotdev.vercel.app",
   profileImages: [
     "/profile.jpg",
   ],
   bannerImage: "/banner.png",
-  bannerVideo: "/header-video.mp4",
   socialBannerImage: "/banner.png",
   initials: "AJ",
   role: "Full Stack Developer",

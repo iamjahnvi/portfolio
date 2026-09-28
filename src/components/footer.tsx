@@ -3,6 +3,10 @@ import { Shell } from "@/components/Layout";
 
 export function Footer() {
   const [localTime, setLocalTime] = useState("");
+  const [updatedDate] = useState(() => new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    year: "numeric",
+  }).format(new Date()));
 
   useEffect(() => {
     const updateTime = () => {
@@ -22,13 +26,21 @@ export function Footer() {
 
   return (
     <footer className="relative z-10 w-full border-t border-[var(--line)]">
-      <Shell className="flex items-center justify-between gap-4 px-6 py-5 sm:px-8">
-        <p className="font-mono text-[11px] text-[var(--muted)]">
-          &copy; {new Date().getFullYear()} All rights reserved.
-        </p>
-        <time className="font-mono text-[11px] tabular-nums text-[var(--muted)]">
-          {localTime || "IST"}
-        </time>
+      <div aria-hidden="true" className="footer-bars" />
+      <Shell className="px-6 pb-5 pt-2 sm:px-8">
+        <div className="flex items-center justify-between gap-4 font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--soft)]">
+          <span>Updated {updatedDate}</span>
+          <span aria-hidden="true" className="text-[var(--muted)]">·</span>
+          <span>Delhi, India</span>
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <p className="font-mono text-[11px] text-[var(--muted)]">
+            &copy; {new Date().getFullYear()} All rights reserved.
+          </p>
+          <time className="font-mono text-[11px] tabular-nums text-[var(--muted)]">
+            {localTime || "IST"}
+          </time>
+        </div>
       </Shell>
     </footer>
   );

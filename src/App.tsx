@@ -7,6 +7,7 @@ import { SideIndex } from "@/components/SideIndex";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Contact } from "@/sections/Contact";
+import { ContactDock } from "@/components/ContactDock";
 import { Projects } from "@/sections/Projects";
 import { Experience } from "@/sections/Experience";
 import { TechStack } from "@/sections/TechStack";
@@ -68,7 +69,7 @@ export function App() {
           <Analytics />
           <ScrollToTop />
           <Konami />
-          <div className="atmosphere min-h-screen bg-[var(--bg)] font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
+          <div className="atmosphere min-h-screen bg-[var(--bg)] pb-20 font-sans text-[var(--fg)] antialiased transition-colors duration-300 relative">
             <Nav onOpenPalette={() => setPaletteOpen(true)} />
             <PullCord />
             <SideIndex />
@@ -91,6 +92,7 @@ export function App() {
             </main>
 
             <Footer />
+            <ContactDock />
             <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
           </div>
       </BrowserRouter>

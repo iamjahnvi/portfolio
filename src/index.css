@@ -161,6 +161,23 @@ html {
     linear-gradient(180deg, rgba(0, 0, 0, 0.006), transparent 24%);
 }
 
+.footer-bars {
+  height: 42px;
+  border-bottom: 1px solid var(--line);
+  opacity: 0.62;
+  background-image: repeating-linear-gradient(90deg, var(--muted) 0 1px, transparent 1px 7px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
+}
+
+.contact-dock {
+  width: max-content;
+  max-width: calc(100vw - 24px);
+}
+
+.contact-dock .dock-link {
+  flex: 0 0 auto;
+}
+
 .section-heading-link {
   position: relative;
   display: inline-flex;

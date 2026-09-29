@@ -22,6 +22,8 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
   const showImage = !!p.image && !imageMissing;
   const fit = p.imageFit ?? "cover";
   const frameStyle = fit === "contain" && p.imageBg ? { backgroundColor: p.imageBg } : undefined;
+  // Cover images default to top (website screenshots); centered device shots like Carvaan opt into center.
+  const positionClass = p.imagePosition === "center" ? "object-center" : "object-top";
   const suggestion = `public/project-images/${slugify(p.title)}.png`;
 
   return (
@@ -36,7 +38,7 @@ export function ProjectCard({ project: p }: { project: Project; index?: number }
               loading="lazy"
               onError={() => setImageMissing(true)}
               className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02] ${
-              fit === "contain" ? "object-contain" : "object-cover object-top"
+              fit === "contain" ? "object-contain" : `object-cover ${positionClass}`
             }`}
             />
           ) : (

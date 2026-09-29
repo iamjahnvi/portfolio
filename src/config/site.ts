@@ -11,6 +11,8 @@ export type Project = {
   imageFit?: "cover" | "contain";
   /** Frame backdrop behind a `contain` image, sampled from the shot itself. */
   imageBg?: string;
+  /** Object position for `cover` images. Defaults to top (good for website screenshots). Use center for centered device shots. */
+  imagePosition?: "top" | "center";
 };
 
 export type Job = {
@@ -130,8 +132,8 @@ export const site = {
       stack: ["React", "TypeScript", "Vite", "Supabase", "HTML5 Audio", "CSS"],
       year: "2026",
       image: "/project-images/virtual-carvaan.jpeg",
-      imageFit: "contain",
-      imageBg: "#131317",
+      imageFit: "cover",
+      imagePosition: "center",
       links: {
         live: "https://virtualcarvaan.netlify.app/",
         source: "https://github.com/iamjahnvi/virtual-carvaan",

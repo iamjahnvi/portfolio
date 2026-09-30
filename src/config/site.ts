@@ -150,6 +150,7 @@ export const site = {
       year: "2025",
       image: "/project-images/tiny-universe.jpeg",
       links: {
+        live: "https://tinyuniversee.netlify.app/",
         source: "https://github.com/iamjahnvi/tiny-universe",
       },
       featured: false,

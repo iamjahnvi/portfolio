@@ -128,6 +128,7 @@ export const site = {
       stack: ["React", "JavaScript", "Vite", "CSS"],
       year: "2025",
       links: {
+        live: "https://tinyuniversee.netlify.app/",
         source: "https://github.com/iamjahnvi/tiny-universe",
       },
       featured: false,
